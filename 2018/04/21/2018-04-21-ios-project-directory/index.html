@@ -94,17 +94,17 @@
 
 
 
-<meta name="description" content="编写中…">
+<meta name="description" content="通用项目-目录结构123456789101112131415|____AppDelegate(程序入口)  |____Base(全局基类:ViewController、API基类等，模块内部基类定义在Session里)  |____Manager(全局管理模块:用户、网络监听、全局设置、地理位置等)  |____Vendors(第三方服务商SDK)  |____Library(封装后的第三方库)">
 <meta property="og:type" content="article">
-<meta property="og:title" content="2018-4-21 Android-Java Code Style">
-<meta property="og:url" content="http://yoursite.com/2018/04/21/2018-04-21-2018-4-21-android-java-code-style/index.html">
+<meta property="og:title" content="iOS Project Directory">
+<meta property="og:url" content="http://yoursite.com/2018/04/21/2018-04-21-ios-project-directory/index.html">
 <meta property="og:site_name" content="Cokecoffe&#39;s Notes">
-<meta property="og:description" content="编写中…">
+<meta property="og:description" content="通用项目-目录结构123456789101112131415|____AppDelegate(程序入口)  |____Base(全局基类:ViewController、API基类等，模块内部基类定义在Session里)  |____Manager(全局管理模块:用户、网络监听、全局设置、地理位置等)  |____Vendors(第三方服务商SDK)  |____Library(封装后的第三方库)">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2018-04-21T05:36:29.522Z">
+<meta property="og:updated_time" content="2018-04-21T06:04:20.433Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="2018-4-21 Android-Java Code Style">
-<meta name="twitter:description" content="编写中…">
+<meta name="twitter:title" content="iOS Project Directory">
+<meta name="twitter:description" content="通用项目-目录结构123456789101112131415|____AppDelegate(程序入口)  |____Base(全局基类:ViewController、API基类等，模块内部基类定义在Session里)  |____Manager(全局管理模块:用户、网络监听、全局设置、地理位置等)  |____Vendors(第三方服务商SDK)  |____Library(封装后的第三方库)">
 
 
 
@@ -133,13 +133,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/04/21/2018-04-21-2018-4-21-android-java-code-style/"/>
+  <link rel="canonical" href="http://yoursite.com/2018/04/21/2018-04-21-ios-project-directory/"/>
 
 
 
 
 
-  <title>2018-4-21 Android-Java Code Style | Cokecoffe's Notes</title>
+  <title>iOS Project Directory | Cokecoffe's Notes</title>
   
 
 
@@ -282,7 +282,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/21/2018-04-21-2018-4-21-android-java-code-style/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/21/2018-04-21-ios-project-directory/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="cokecoffe">
@@ -299,7 +299,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">2018-4-21 Android-Java Code Style</h1>
+          <h1 class="post-title" itemprop="name headline">iOS Project Directory</h1>
         
 
         <div class="post-meta">
@@ -311,7 +311,7 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-04-21T13:35:00+08:00">
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-04-21T14:00:00+08:00">
                 2018-04-21
               </time>
             
@@ -321,28 +321,6 @@
             
           </span>
 
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/AppTeam/" itemprop="url" rel="index">
-                    <span itemprop="name">AppTeam</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
           
 
           
@@ -371,7 +349,8 @@
       
 
       
-        <h2 id="编写中…"><a href="#编写中…" class="headerlink" title="编写中…"></a>编写中…</h2>
+        <h2 id="通用项目-目录结构"><a href="#通用项目-目录结构" class="headerlink" title="通用项目-目录结构"></a>通用项目-目录结构</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">|____AppDelegate(程序入口)</span><br><span class="line">  |____Base(全局基类:ViewController、API基类等，模块内部基类定义在Session里)</span><br><span class="line">  |____Manager(全局管理模块:用户、网络监听、全局设置、地理位置等)</span><br><span class="line">  |____Vendors(第三方服务商SDK)</span><br><span class="line">  |____Library(封装后的第三方库)</span><br><span class="line">  |____Macro(全局宏定义、常量定义)</span><br><span class="line">  |____Resource(全局图片、声音、配置项等。PS:各模块资源分布在Sessions)</span><br><span class="line">  |____Sessions(功能模块)</span><br><span class="line">  | |____Session</span><br><span class="line">  | | |____API(网络请求)</span><br><span class="line">  | | |____Model(数据模型定义)</span><br><span class="line">  | | |____Service(数据请求、处理、加工)</span><br><span class="line">  | | |____Controller</span><br><span class="line">  | | |____View(Cell\自定义View)</span><br><span class="line">  | | |____Resource(该模块涉及的图片资源等)</span><br></pre></td></tr></table></figure>
+
       
     </div>
     
@@ -395,8 +374,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/04/21/2018-04-21Log-standard/" rel="next" title="Log standard">
-                <i class="fa fa-chevron-left"></i> Log standard
+              <a href="/2018/04/21/2018-4-21-android-java-code-style/" rel="next" title="Android-Java Code Style">
+                <i class="fa fa-chevron-left"></i> Android-Java Code Style
               </a>
             
           </div>
@@ -480,7 +459,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-count">5</span>
                 <span class="site-state-item-name">posts</span>
               </a>
             </div>
@@ -552,7 +531,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#编写中…"><span class="nav-number">1.</span> <span class="nav-text">编写中…</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#通用项目-目录结构"><span class="nav-number">1.</span> <span class="nav-text">通用项目-目录结构</span></a></li></ol></div>
             
 
           </div>
