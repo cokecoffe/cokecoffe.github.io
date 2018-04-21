@@ -94,17 +94,17 @@
 
 
 
-<meta name="description" content="##Log standard ##日志系统 Android:logger    iOS:CocoaLumberjack ##日志级别 DEBUG开发调试日志。一般来说，在系统实际运行过程中，不会输出该级别的日志。INFO日志级别主要用于记录系统运行状态等关联信息。该日志级别，常用于反馈系统当前状态给最终用户。所以，在这里输出的信息，应该对最终用户具有实际意义，也就是最终用户要能够看得明白是什么意思">
+<meta name="description" content="Log standard日志系统Android:logger    iOS:CocoaLumberjack 日志级别DEBUG开发调试日志。一般来说，在系统实际运行过程中，不会输出该级别的日志。INFO日志级别主要用于记录系统运行状态等关联信息。该日志级别，常用于反馈系统当前状态给最终用户。所以，在这里输出的信息，应该对最终用户具有实际意义，也就是最终用户要能够看得明白是什么意思才行。WARN日志">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Log standard">
 <meta property="og:url" content="http://yoursite.com/2018/04/21/2018-04-21Log-standard/index.html">
 <meta property="og:site_name" content="Cokecoffe&#39;s Notes">
-<meta property="og:description" content="##Log standard ##日志系统 Android:logger    iOS:CocoaLumberjack ##日志级别 DEBUG开发调试日志。一般来说，在系统实际运行过程中，不会输出该级别的日志。INFO日志级别主要用于记录系统运行状态等关联信息。该日志级别，常用于反馈系统当前状态给最终用户。所以，在这里输出的信息，应该对最终用户具有实际意义，也就是最终用户要能够看得明白是什么意思">
+<meta property="og:description" content="Log standard日志系统Android:logger    iOS:CocoaLumberjack 日志级别DEBUG开发调试日志。一般来说，在系统实际运行过程中，不会输出该级别的日志。INFO日志级别主要用于记录系统运行状态等关联信息。该日志级别，常用于反馈系统当前状态给最终用户。所以，在这里输出的信息，应该对最终用户具有实际意义，也就是最终用户要能够看得明白是什么意思才行。WARN日志">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-04-21T03:27:21.690Z">
+<meta property="og:updated_time" content="2018-04-21T03:30:58.662Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Log standard">
-<meta name="twitter:description" content="##Log standard ##日志系统 Android:logger    iOS:CocoaLumberjack ##日志级别 DEBUG开发调试日志。一般来说，在系统实际运行过程中，不会输出该级别的日志。INFO日志级别主要用于记录系统运行状态等关联信息。该日志级别，常用于反馈系统当前状态给最终用户。所以，在这里输出的信息，应该对最终用户具有实际意义，也就是最终用户要能够看得明白是什么意思">
+<meta name="twitter:description" content="Log standard日志系统Android:logger    iOS:CocoaLumberjack 日志级别DEBUG开发调试日志。一般来说，在系统实际运行过程中，不会输出该级别的日志。INFO日志级别主要用于记录系统运行状态等关联信息。该日志级别，常用于反馈系统当前状态给最终用户。所以，在这里输出的信息，应该对最终用户具有实际意义，也就是最终用户要能够看得明白是什么意思才行。WARN日志">
 
 
 
@@ -371,21 +371,15 @@
       
 
       
-        <p>##Log standard</p>
-<p>##日志系统</p>
-<p>Android:<a href="https://github.com/orhanobut/logger" target="_blank" rel="noopener">logger</a><br>    iOS:<a href="https://github.com/CocoaLumberjack/CocoaLumberjack" target="_blank" rel="noopener">CocoaLumberjack</a></p>
-<p>##日志级别</p>
-<p><code>DEBUG</code><br>开发调试日志。一般来说，在系统实际运行过程中，不会输出该级别的日志。<br><code>INFO</code><br>日志级别主要用于记录系统运行状态等关联信息。该日志级别，常用于反馈系统当前状态给最终用户。所以，在这里输出的信息，应该对最终用户具有实际意义，也就是最终用户要能够看得明白是什么意思才行。<br><code>WARN</code><br>日志常用来表示系统模块发生问题，但并不影响系统运行。 此时，进行一些修复性的工作，还能把系统恢复到正常的状态。<br><code>ERROR</code><br> 此信息输出后，主体系统核心模块正常工作，需要修复才能正常工作。 就是说可以进行一些修复性的工作，但无法确定系统会正常的工作下去，系统在以后的某个阶段，很可能会因为当前的这个问题，导致一个无法修复的错误（例如宕机），但也可能一直工作到停止也不出现严重问题。</p>
-<p>##日志时机</p>
-<ol>
+        <h2 id="Log-standard"><a href="#Log-standard" class="headerlink" title="Log standard"></a>Log standard</h2><h2 id="日志系统"><a href="#日志系统" class="headerlink" title="日志系统"></a>日志系统</h2><p>Android:<a href="https://github.com/orhanobut/logger" target="_blank" rel="noopener">logger</a><br>    iOS:<a href="https://github.com/CocoaLumberjack/CocoaLumberjack" target="_blank" rel="noopener">CocoaLumberjack</a></p>
+<h2 id="日志级别"><a href="#日志级别" class="headerlink" title="日志级别"></a>日志级别</h2><p><code>DEBUG</code><br>开发调试日志。一般来说，在系统实际运行过程中，不会输出该级别的日志。<br><code>INFO</code><br>日志级别主要用于记录系统运行状态等关联信息。该日志级别，常用于反馈系统当前状态给最终用户。所以，在这里输出的信息，应该对最终用户具有实际意义，也就是最终用户要能够看得明白是什么意思才行。<br><code>WARN</code><br>日志常用来表示系统模块发生问题，但并不影响系统运行。 此时，进行一些修复性的工作，还能把系统恢复到正常的状态。<br><code>ERROR</code><br> 此信息输出后，主体系统核心模块正常工作，需要修复才能正常工作。 就是说可以进行一些修复性的工作，但无法确定系统会正常的工作下去，系统在以后的某个阶段，很可能会因为当前的这个问题，导致一个无法修复的错误（例如宕机），但也可能一直工作到停止也不出现严重问题。</p>
+<h2 id="日志时机"><a href="#日志时机" class="headerlink" title="日志时机"></a>日志时机</h2><ol>
 <li>页面、按钮事件 （INFO）</li>
 <li>网络请求 request、response（Debug+Error）</li>
 <li>编程语言错误（Error）</li>
 </ol>
-<p>##日志内容</p>
-<p>时间+用户标识+功能+等<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">另：不要涉及密码及个人信息（身份证、银行卡号etc）</span><br></pre></td></tr></table></figure></p>
-<p>##日志输出</p>
-<p>终端+本地文件+服务端</p>
+<h2 id="日志内容"><a href="#日志内容" class="headerlink" title="日志内容"></a>日志内容</h2><p>时间+用户标识+功能+等<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">另：不要涉及密码及个人信息（身份证、银行卡号etc）</span><br></pre></td></tr></table></figure></p>
+<h2 id="日志输出"><a href="#日志输出" class="headerlink" title="日志输出"></a>日志输出</h2><p>终端+本地文件+服务端</p>
 <ol>
 <li>终端日志可以控制输出级别</li>
 <li>本地日志文件需控制日志大小，并可选择性导出、或上传至服务端</li>
@@ -474,8 +468,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/cc_avatar.png"
@@ -552,6 +555,22 @@
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Log-standard"><span class="nav-number">1.</span> <span class="nav-text">Log standard</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#日志系统"><span class="nav-number">2.</span> <span class="nav-text">日志系统</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#日志级别"><span class="nav-number">3.</span> <span class="nav-text">日志级别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#日志时机"><span class="nav-number">4.</span> <span class="nav-text">日志时机</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#日志内容"><span class="nav-number">5.</span> <span class="nav-text">日志内容</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#日志输出"><span class="nav-number">6.</span> <span class="nav-text">日志输出</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
