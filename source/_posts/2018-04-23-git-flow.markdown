@@ -1,0 +1,77 @@
+---
+layout: "post"
+title: "Git Flow"
+date: "2018-04-23 13:36"
+categories: AppTeam
+---
+# Git Flow
+
+为了提高团队协作效率，在开发中将采用Git Flow方式进行代码管理。
+
+## 基础命令
+
+- git **init**
+```
+初始化当前目录为git仓库
+```
+- git **add** filename
+```
+把工作区的修改提交到Git仓库的暂存区
+```
+- git **commit** -m "log"
+```
+把暂存区的所有内容提交到当前分支
+```
+- git **remote add** origin git@xxx.xx.git
+```
+把本地仓库添加远程库
+```
+- git **push** -u origin master
+```
+把本地库master的所有内容推送到远程库
+```
+- git **clone** git@github.com/xx.git
+```
+从远程库克隆出一个本地库
+```
+- git **stash**
+```
+git stash
+```
+
+## 分支管理
+
+![gitflow](git flow.png)
+
+### 分支介绍
+
+分支名称 | 命名规范 | 创建自 | 合并至 |  说明
+--|---|---|---|--
+master  |  - |  - | -  |  主分支，此分支随时可打包发布生产
+develop  | -  | -  | - |  主分支，和master并行的分支，此分支会包含多个开发特性
+feature  | feature-特性名称 | develop  | develop  |  每次新功能开发使用,功能开发完毕后合并至develop便删除
+release  | release-版本号  | develop  | develop/master  |  进入测试阶段后从develop派生，待测试完毕后合并至develop和master
+hotfix  | hotfix-版本号   | master | deveop/master  |  用于修复线上bug
+
+
+### git flow 如何工作
+
+1. Master：所有在Master分支上的Commit应该Tag
+2. Feature：Feature分支做完后，必须合并回Develop分支, 合并完分支后一般会删点这个Feature分支，但是我们也可以保留
+3. Release： Release分支基于Develop分支创建，打完Release分之后，我们可以在这个Release分支上测试，修改Bug等。同时，其它开发人员可以基于开发新的Feature
+`
+<记住>：一旦打了Release分支之后不要从Develop分支上合并新的改动到Release分支，发布Release分支时，合并Release到Master和Develop， 同时在Master分支上打个Tag记住Release版本号，然后可以删除Release分支了。
+`
+4. Hotfix：hotfix分支基于Master分支创建，开发完后需要合并回Master和Develop分支，同时在Master上打一个tag
+
+## 客户端
+
+[SourceTree](https://www.sourcetreeapp.com)
+
+## 提交规范
+
+1. 以功能点为单位进行提交，单次提交不掺杂多个修改
+2. 提交日志应该包含修改内容、原因等简要信息
+```
+提交日志反例：优化代码；bug修复；
+```
