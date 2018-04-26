@@ -97,7 +97,7 @@
 <meta name="description" content="Objective-C Code Style这篇编码风格指南概括了Raywenderlich Objective-c-style-guide，并做了增删修改，作为平安社区Objective-C的编码规范。 介绍我们制定Objective-C编码规范的原因是我们能够在团队协作中代码保持优雅和一致。即使我们有很多不同的人员来完成不同的项目。 参考这里有些关于编码风格Apple官方文档，如果有些东西没有">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Objective-C Code Style">
-<meta property="og:url" content="http://yoursite.com/2018/04/20/2018-04-20-Objective-C Style/index.html">
+<meta property="og:url" content="http://cokecoffe.github.io/2018/04/20/2018-04-20-Objective-C Style/index.html">
 <meta property="og:site_name" content="Cokecoffe&#39;s Notes">
 <meta property="og:description" content="Objective-C Code Style这篇编码风格指南概括了Raywenderlich Objective-c-style-guide，并做了增删修改，作为平安社区Objective-C的编码规范。 介绍我们制定Objective-C编码规范的原因是我们能够在团队协作中代码保持优雅和一致。即使我们有很多不同的人员来完成不同的项目。 参考这里有些关于编码风格Apple官方文档，如果有些东西没有">
 <meta property="og:locale" content="en">
@@ -133,7 +133,7 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/04/20/2018-04-20-Objective-C Style/"/>
+  <link rel="canonical" href="http://cokecoffe.github.io/2018/04/20/2018-04-20-Objective-C Style/"/>
 
 
 
@@ -282,7 +282,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/20/2018-04-20-Objective-C Style/">
+    <link itemprop="mainEntityOfPage" href="http://cokecoffe.github.io/2018/04/20/2018-04-20-Objective-C Style/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="cokecoffe">
@@ -346,6 +346,17 @@
           
 
           
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/04/20/2018-04-20-Objective-C Style/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2018/04/20/2018-04-20-Objective-C Style/" itemprop="commentCount"></span>
+                </a>
+              </span>
             
           
 
@@ -438,7 +449,7 @@
 <p><strong>方式2:</strong></p>
 <figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// colon-aligning makes the block indentation hard to read</span></span><br><span class="line">[<span class="built_in">UIView</span> animateWithDuration:<span class="number">1.0</span></span><br><span class="line">                 animations:^&#123;</span><br><span class="line">                     <span class="comment">// something</span></span><br><span class="line">                 &#125;</span><br><span class="line">                 completion:^(<span class="built_in">BOOL</span> finished) &#123;</span><br><span class="line">                     <span class="comment">// something</span></span><br><span class="line">                 &#125;];</span><br></pre></td></tr></table></figure>
 <p><b id="comments"></b></p>
-<h3 id="注释"><a href="#注释" class="headerlink" title="注释"></a>注释</h3><p>详细参考<a href="https://cokecoffe.github.io/2018/04/21/2018-04-21-document-convertions/" target="_blank" rel="noopener">《Document Convertions》</a><br>当需要注释时，注释应该用来解释这段特殊代码<strong>为什么</strong>要这样做。任何被使用的注释都必须保持最新或被删除。</p>
+<h3 id="注释"><a href="#注释" class="headerlink" title="注释"></a>注释</h3><p>详细参考<a href="https://cokecoffe.github.io/2018/04/21/2018-04-21-document-convertions/">《Document Convertions》</a><br>当需要注释时，注释应该用来解释这段特殊代码<strong>为什么</strong>要这样做。任何被使用的注释都必须保持最新或被删除。</p>
 <p>一般都避免使用块注释，因为代码尽可能做到自解释，只有当断断续续或几行代码时才需要注释。<em>例外：这不应用在生成文档的注释</em></p>
 <p><b id="naming"></b></p>
 <h3 id="命名"><a href="#命名" class="headerlink" title="命名"></a>命名</h3><h4 id="类名-与-文件-的命名规范"><a href="#类名-与-文件-的命名规范" class="headerlink" title="类名 与 文件 的命名规范"></a>类名 与 文件 的命名规范</h4><ol>
@@ -680,6 +691,13 @@
 
           
   <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
     
   </div>
 
@@ -943,6 +961,26 @@
 
   
 
+    
+      <script id="dsq-count-scr" src="https://cc.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'http://cokecoffe.github.io/2018/04/20/2018-04-20-Objective-C Style/';
+          this.page.identifier = '2018/04/20/2018-04-20-Objective-C Style/';
+          this.page.title = 'Objective-C Code Style';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://cc.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
 
 
 
@@ -955,10 +993,6 @@
   
 
 
-
-
-
-  
 
 
 
