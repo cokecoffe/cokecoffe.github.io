@@ -9,6 +9,8 @@ categories: AppTeam
 
 本规范作为Code Review的依据
 
+<!-- more -->
+
 ### 架构/设计/常规
 
 1. 文件

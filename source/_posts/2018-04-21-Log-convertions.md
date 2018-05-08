@@ -10,6 +10,8 @@ categories: AppTeam
 Android:[logger](https://github.com/orhanobut/logger)
 	iOS:[CocoaLumberjack](https://github.com/CocoaLumberjack/CocoaLumberjack)
 
+<!-- more -->
+
 ## 日志级别
 
 `DEBUG`

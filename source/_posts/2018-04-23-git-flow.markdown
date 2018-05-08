@@ -8,6 +8,8 @@ categories: AppTeam
 
 为了提高团队协作效率，在开发中将采用Git Flow方式进行代码管理。
 
+<!-- more -->
+
 ## 基础命令
 
 - git **init**

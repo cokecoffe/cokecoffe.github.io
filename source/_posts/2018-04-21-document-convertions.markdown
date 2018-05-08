@@ -11,6 +11,9 @@ categories: AppTeam
 2. [多行注释](#multiline)
 3. [方法注释](#function)
 4. [方法集注释](#block)
+5. [类注释](#class)
+
+<!-- more -->
 
 <b id="singleline"></b>
 ### 单行注释
@@ -57,4 +60,15 @@ Studio快捷键:函数上方输入 `/**` 然后回车
 用于对方法进行分类
 ```
 #param mark - <#注释内容>
+```
+<b id="class"></b>
+### 类注释
+
+在.h 文件 @interface 上面添加当前类的 提示注释
+1. 方便查看当前类的作用（如图）；
+2. 在各个类中使用当前类的时候都可以通过 option+点击 来查看提示注释（如图）；
+3. 方便以后做更多的提示注释（如图）；
+```
+/// 商品订单优惠cell
+@interface SGProductOrderDiscountCell : UITableViewCell
 ```

@@ -1,25 +1,20 @@
 ---
-title: Objective-C code style
+title: Objective-C Code Style
 date: 2018/4/20
 categories: AppTeam
 ---
 
-# Objective-C code style
-这篇编码风格指南概括了[Raywenderlich Objective-c-style-guide](https://github.com/raywenderlich/objective-c-style-guide#language)，并做了增删修改，暂时作为平安社区Objective-C的编码规范。
+# Objective-C Code Style
+
+这篇编码风格指南概括了[Raywenderlich Objective-c-style-guide](https://github.com/raywenderlich/objective-c-style-guide#language)，并做了增删修改，作为平安社区Objective-C的编码规范。
 
 ## 介绍
 
-我们制定Objective-C编码规范的原因是我们能够在我们的书，教程和初学者工具包的代码保持优雅和一致。即使我们有很多不同的作者来完成不同的书籍。
+我们制定Objective-C编码规范的原因是我们能够在团队协作中代码保持优雅和一致。即使我们有很多不同的人员来完成不同的项目。
 
-这里编码规范有可能与你看到的其他Objective-C编码规范不同，因为它主要是为了打印和web的易读性。
+<!-- more -->
 
-## 关于作者
-
-这编码规范的创建是由很多来自raywenderlich.com团队成员在Nicholas Waynik的带领下共同完成的。团队成员有：[Soheil Moayedi Azarpour](https://github.com/moayes), [Ricardo Rendon Cepeda](https://github.com/ricardo-rendoncepeda), [Tony Dahbura](https://github.com/tdahbura), [Colin Eberhardt](https://github.com/ColinEberhardt), [Matt Galloway](https://github.com/mattjgalloway), [Greg Heo](https://github.com/gregheo), [Matthijs Hollemans](https://github.com/hollance), [Christopher LaPollo](https://github.com/elephantronic), [Saul Mora](https://github.com/casademora), [Andy Pereira](https://github.com/macandyp), [Mic Pringle](https://github.com/micpringle), [Pietro Rea](https://github.com/pietrorea), [Cesare Rocchi](https://github.com/funkyboy), [Marin Todorov](https://github.com/icanzilb), [Nicholas Waynik](https://github.com/ndubbs)和[Ray Wenderlich](https://github.com/raywenderlich)
-
-我们也非常感谢[New York Times](https://github.com/NYTimes/objective-c-style-guide) 和[Robots & Pencils'](https://github.com/RobotsAndPencils/objective-c-style-guide)Objective-C编码规范的作者。这两个编码规范为本指南的创建提供很好的起点。
-
-## 背景
+## 参考
 
 这里有些关于编码风格Apple官方文档，如果有些东西没有提及，可以在以下文档来查找更多细节：
 
@@ -27,6 +22,7 @@ categories: AppTeam
 * [Cocoa Fundamentals Guide](https://developer.apple.com/library/mac/#documentation/Cocoa/Conceptual/CocoaFundamentals/Introduction/Introduction.html)
 * [Coding Guidelines for Cocoa](https://developer.apple.com/library/mac/#documentation/Cocoa/Conceptual/CodingGuidelines/CodingGuidelines.html)
 * [iOS App Programming Guide](http://developer.apple.com/library/ios/#documentation/iphone/conceptual/iphoneosprogrammingguide/Introduction/Introduction.html)
+* [Sengo - iOS 代码规范](https://legacy.gitbook.com/book/kenlu/sengo-/details)
 
 ## 目录
 
@@ -55,11 +51,9 @@ categories: AppTeam
 * [错误处理](#error-handling)
 * [单例模式](#singletons)
 * [换行符](#line-breaks)
-* [Xcode工程](#xcode-project)
-* [其他风格](#other_style)
 
 <b id="language"></b>
-## 语言
+### 语言
 
 应该使用US英语.
 
@@ -76,56 +70,68 @@ UIColor *myColour = [UIColor whiteColor];
 ```
 
 <b id="code-organization"></b>
-## 代码组织
+### 代码组织
 
 在函数分组和protocol/delegate实现中使用`#pragma mark -`来分类方法，要遵循以下一般结构：
+（且遵循以下代码块顺序）
 
 ```objc
 #pragma mark - Lifecycle
+
 - (instancetype)init {}
 - (void)dealloc {}
 - (void)viewDidLoad {}
 - (void)viewWillAppear:(BOOL)animated {}
 - (void)didReceiveMemoryWarning {}
 
+#pragma mark - InitUI
+
+-(void)tableView;
+
 #pragma mark - Custom Accessors
+
 - (void)setCustomProperty:(id)value {}
 - (id)customProperty {}
 
+#pragma mark - Public Methods
+
+#pragma mark - Logics
+
+#pragma mark - Request
+
 #pragma mark - IBActions/Event Response
+
 - (IBAction)submitData:(id)sender {}
 - (void)someButtonDidPressed:(UIButton*)button
+
+#pragma mark - Notifications
 
 #pragma mark - Protocol conformance
 #pragma mark - UITextFieldDelegate
 #pragma mark - UITableViewDataSource
 #pragma mark - UITableViewDelegate
 
-#pragma mark - Public
-- (void)publicMethod {}
+#pragma mark - Helper
 
-#pragma mark - Private
-- (void)privateMethod {}
-
-#pragma mark - NSCopying
-- (id)copyWithZone:(NSZone *)zone {}
-
-#pragma mark - NSObject
-- (NSString *)description {}
+#pragma mark - Others
 
 ```
 
-##常用标签的使用
+### 常用标签的使用
 
-	// MARK: <label name>
-	// TODO: <text you want to remember>
-	// FIXME: <text you want to remember>
+```objc
+	// MARK: - 有横线的分割标记
+	// MARK: 没有横线的分割标记
+	// TODO: 这里需要继续修改
+	// FIXME: 定位标记在这里
+```
 
 <b id="spacing"></b>
-## 空格
+### 空格
 
 * 缩进使用**4**个空格，确保在Xcode偏好设置来设置。(raywenderlich.com使用**2**个空格)
 * 方法大括号和其他大括号(`if`/`else`/`switch`/`while` 等.)总是在同一行语句打开但在新行中关闭。
+* 函数与函数之间隔开一行，仅仅就是一行
 
 **应该:**
 
@@ -178,19 +184,35 @@ else {
 ```
 
 <b id="comments"></b>
-## 注释
-
+### 注释
+详细参考[《Document Convertions》](https://cokecoffe.github.io/2018/04/21/2018-04-21-document-convertions/)
 当需要注释时，注释应该用来解释这段特殊代码**为什么**要这样做。任何被使用的注释都必须保持最新或被删除。
 
 一般都避免使用块注释，因为代码尽可能做到自解释，只有当断断续续或几行代码时才需要注释。*例外：这不应用在生成文档的注释*
 
 <b id="naming"></b>
-## 命名
+### 命名
 
-Apple命名规则尽可能坚持，特别是与这些相关的[memory management rules](https://developer.apple.com/library/mac/#documentation/Cocoa/Conceptual/MemoryMgmt/Articles/MemoryMgmt.html) ([NARC](http://stackoverflow.com/a/2865194/340508))。
+#### 类名 与 文件 的命名规范
+1. 使用驼峰命名法，类命名每个单词的首字母都采用大写字母，变量首单词首字母使用小写
+2. 类命名前缀：PA
+3. Controller文件命名：PA + 功能 + ViewController
+4. View/Cell命名：PA + 功能 + View / Cell / . . .
+5. Service命名：PA + 功能 + Service
+6. Model：PA + 功能 + Model
+7. Protocol：PA + 功能 + Protocol
+8. 视图类型后缀：registerBtn，registerTF；注：视图类型不带后缀命名会引起歧义, 比如title (这个到底是个NSString 还是 UILabel ?)，如果是数据类型就不建议使用类型后缀，因为从语法中就能观察出数据类型，数据类型添加后缀显得有点画蛇添足。
 
-长的，描述性的方法和变量命名是好的。
+#### 方法 的命名规范
 
+1. 使用 小驼峰 命名法，第一个单词首字母小写，后面其他单词首字母大写
+2. 方法的命名应该能够表达概括函数的功能性
+常用动词:`init\add\create\set\get\touch\move\`
+
+```objc
+-(void)addData2SomeView();
+-(void)getDataFromSomeView();
+```
 
 **应该:**
 
@@ -238,12 +260,12 @@ id varnm;
 
 当使用属性时，实例变量应该使用`self.`来访问和改变。这就意味着所有属性将会视觉效果不同，因为它们前面都有`self.`。
 
-但有一个特例：在初始化方法里，实例变量(例如，_variableName)应该直接被使用来避免getters/setters潜在的副作用。
+但有一个特例：在初始化方法里，实例变量(例如_variableName)应该直接被使用来避免getters/setters潜在的副作用。
 
 全局变量使用g开头 例如gValue;属性不加下划线。局部变量不应该包含下划线。
 
 <b id="methods"></b>
-## 方法
+### 方法
 
 在方法签名中，应该在方法类型(-/+ 符号)之后有一个空格。在方法各个段之间应该也有一个空格(符合Apple的风格)。在参数之前应该包含一个具有描述性的关键字来描述参数。
 
@@ -267,7 +289,7 @@ id varnm;
 - (instancetype)initWith:(int)width and:(int)height;  // Never do this.
 ```
 <b id="variables"></b>
-## 变量
+### 变量
 
 变量尽量以描述性的方式来命名。单个字符的变量命名应该尽量避免，除了在`for()`循环。
 
@@ -296,7 +318,7 @@ id varnm;
 ```
 
 <b id="property-attributes"></b>
-## 属性特性
+### 属性特性
 
 所有属性特性应该显式地列出来，有助于新手阅读代码。属性特性的顺序应该是storage、atomicity，与在Interface Builder连接UI元素时自动生成代码一致。
 
@@ -316,7 +338,7 @@ id varnm;
 
 NSString应该使用`copy` 而不是 `strong`的属性特性。
 
-为什么？即使你声明一个`NSString`的属性，有人可能传入一个`NSMutableString`的实例，然后在你没有注意的情况下修改它。 
+为什么？即使你声明一个`NSString`的属性，有人可能传入一个`NSMutableString`的实例，然后在你没有注意的情况下修改它。
 
 **应该:**
 
@@ -331,13 +353,11 @@ NSString应该使用`copy` 而不是 `strong`的属性特性。
 ```
 
 <b id="dot-notation-syntax"></b>
-## 点符号语法
+### 点符号语法
 
 点语法是一种很方便封装访问方法调用的方式。当你使用点语法时，通过使用getter或setter方法，属性仍然被访问或修改。想了解更多，阅读[这里](https://developer.apple.com/library/ios/documentation/cocoa/conceptual/ProgrammingWithObjectiveC/EncapsulatingData/EncapsulatingData.html)
 
 点语法应该**总是**被用来访问和修改属性，因为它使代码更加简洁。[]符号更偏向于用在其他例子。
-
-
 
 **应该:**
 ```objc
@@ -354,7 +374,7 @@ UIApplication.sharedApplication.delegate;
 ```
 
 <b id="literals"></b>
-## 字面值
+### 字面值
 
 `NSString`, `NSDictionary`, `NSArray`, 和 `NSNumber`的字面值应该在创建这些类的不可变实例时被使用。请特别注意`nil`值不能传入`NSArray`和`NSDictionary`字面值，因为这样会导致crash。
 
@@ -376,7 +396,7 @@ NSNumber *shouldUseLiterals = [NSNumber numberWithBool:YES];
 NSNumber *buildingStreetNumber = [NSNumber numberWithInteger:10018];
 ```
 <b id="constants"></b>
-## 常量
+### 常量
 
 常量是容易重复被使用和无需通过查找和代替就能快速修改值。常量应该使用`static`来声明而不是使用`#define`，除非显式地使用宏。
 
@@ -398,7 +418,7 @@ static CGFloat const RWTImageThumbnailHeight = 50.0;
 #define thumbnailHeight 2
 ```
 <b id="enumerated-types"></b>
-## 枚举类型
+### 枚举类型
 
 当使用`enum`时，推荐使用新的固定基本类型规格，因为它有更强的类型检查和代码补全。现在SDK有一个宏`NS_ENUM()`来帮助和鼓励你使用固定的基本类型。
 
@@ -435,7 +455,7 @@ enum GlobalConstants {
 ```
 
 <b id="case-statements"></b>
-## Case语句
+### Case语句
 
 大括号在case语句中并不是必须的，除非编译器强制要求。当一个case语句包含多行代码时，大括号应该加上。
 
@@ -452,7 +472,7 @@ switch (condition) {
   case 3:
     // ...
     break;
-  default: 
+  default:
     // ...
     break;
 }
@@ -468,7 +488,7 @@ switch (condition) {
   case 2:
     // code executed for values 1 and 2
     break;
-  default: 
+  default:
     // ...
     break;
 }
@@ -494,7 +514,7 @@ switch (menuType) {
 ```
 
 <b id="private-properties"></b>
-## 私有属性
+### 私有属性
 
 私有属性应该在类的实现文件中的类扩展(匿名分类)中声明，命名分类(比如`RWTPrivate `或`private`)应该从不使用除非是扩展其他类。匿名分类应该通过使用<headerfile>+Private.h文件的命名规则暴露给测试。
 
@@ -511,7 +531,7 @@ switch (menuType) {
 ```
 
 <b id="booleans"></b>
-## 布尔值
+### 布尔值
 
 Objective-C使用`YES`和`NO`。因为`true`和`false`应该只在CoreFoundation，C或C++代码使用。既然`nil`解析成`NO`，所以没有必要在条件语句比较。不要拿某样东西直接与`YES`比较，因为`YES`被定义为1和一个`BOOL`能被设置为8位。
 
@@ -542,7 +562,7 @@ if (isAwesome == true) {} // Never do this.
 文字和例子从这里引用[Cocoa Naming Guidelines](https://developer.apple.com/library/mac/#documentation/Cocoa/Conceptual/CodingGuidelines/Articles/NamingIvarsAndTypes.html#//apple_ref/doc/uid/20001284-BAJGIIJE)
 
 <b id="conditionals"></b>
-## 条件语句
+### 条件语句
 
 条件语句主体为了防止出错应该使用大括号包围，即使条件语句主体能够不用大括号编写(如，只用一行代码)。这些错误包括添加第二行代码和期望它成为if语句；还有，[even more dangerous defect](http://programmers.stackexchange.com/a/16530)可能发生在if语句里面一行代码被注释了，然后下一行代码不知不觉地成为if语句的一部分。除此之外，这种风格与其他条件语句的风格保持一致，所以更加容易阅读。
 
@@ -591,7 +611,7 @@ result = a > b ? x = c > d ? c : d : y;
 ```
 
 <b id="init-methods"></b>
-## Init方法
+### Init方法
 
 Init方法应该遵循Apple生成代码模板的命名规则。返回类型应该使用`instancetype`而不是`id`
 
@@ -608,7 +628,7 @@ Init方法应该遵循Apple生成代码模板的命名规则。返回类型应�
 
 
 <b id="class-constructor-methods"></b>
-## 类构造方法
+### 类构造方法
 
 当类构造方法被使用时，它应该返回类型是`instancetype `而不是`id`。这样确保编译器正确地推断结果类型。
 
@@ -622,7 +642,7 @@ Init方法应该遵循Apple生成代码模板的命名规则。返回类型应�
 
 
 <b id="cgrect-functions"></b>
-## CGRect函数
+### CGRect函数
 
 当访问`CGRect`里的`x`, `y`, `width`, 或 `height`时，应该使用[`CGGeometry`函数](http://developer.apple.com/library/ios/#documentation/graphicsimaging/reference/CGGeometry/Reference/reference.html)而不是直接通过结构体来访问。引用Apple的`CGGeometry `:
 
@@ -654,7 +674,7 @@ CGRect frame = (CGRect){ .origin = CGPointZero, .size = frame.size };
 ```
 
 <b id="golden-path"></b>
-## 黄金路径
+### 黄金路径
 
 当使用条件语句编码时，左手边的代码应该是"golden" 或 "happy"路径。也就是不要嵌套`if`语句，多个返回语句也是OK。
 
@@ -681,7 +701,7 @@ CGRect frame = (CGRect){ .origin = CGPointZero, .size = frame.size };
 ```
 
 <b id="error-handling"></b>
-## 错误处理
+### 错误处理
 
 当方法通过引用来返回一个错误参数，判断返回值而不是错误变量。
 
@@ -705,7 +725,7 @@ if (error) {
 在成功的情况下，有些Apple的APIs记录垃圾值(garbage values)到错误参数(如果non-NULL)，那么判断错误值会导致false负值和crash。
 
 <b id="singletons"></b>
-## 单例模式
+### 单例模式
 
 单例对象应该使用线程安全模式来创建共享实例。
 
@@ -725,7 +745,7 @@ if (error) {
 这会防止[possible and sometimes prolific crashes](http://cocoasamurai.blogspot.com/2011/04/singletons-your-doing-them-wrong.html).
 
 <b id="line-breaks"></b>
-## 换行符
+### 换行符
 
 换行符是一个很重要的主题，因为它的风格指南主要为了打印和网上的可读性。
 
@@ -738,28 +758,13 @@ self.productsRequest = [[SKProductsRequest alloc] initWithProductIdentifiers:pro
 一行很长的代码应该分成两行代码，下一行用两个空格隔开。
 
 ```objc
-self.productsRequest = [[SKProductsRequest alloc] 
+self.productsRequest = [[SKProductsRequest alloc]
   initWithProductIdentifiers:productIdentifiers];
 ```
 
-<b id="xcode-project"></b>
-## Xcode工程
+## 其他Objective-C编码规范
 
-物理文件应该与Xcode工程文件保持同步来避免文件扩张。任何Xcode分组的创建应该在文件系统的文件体现。代码不仅是根据**类型**来分组，而且还可以根据**功能**来分组，这样代码更加清晰。
-
-尽可能在target的Build Settings打开"Treat Warnings as Errors，和启用以下[additional warnings](http://boredzo.org/blog/archives/2009-11-07/warnings)。如果你需要忽略特殊的警告，使用 [Clang's pragma feature](http://clang.llvm.org/docs/UsersManual.html#controlling-diagnostics-via-pragmas)。
-
-<b id="other_style"></b>
-## 其他
-1.一个方法中尽可能只做一件事，或者一类事，提取可复用的部分生成新的方法。
-2.属性列表应该按照类型进行分类，并注释，便于阅读。
-3.善用常量
-4.善用枚举
-5.git日志要简洁明了并有必要的注释，不要笼统。例如："调试"、"修改xx需求"、"修改bug"，需要明确指出做出哪些修改。尽量做到小提交，不要堆积。
-
-# 其他Objective-C编码规范
-
-如果我们的编码规范不符合你的口味，可以查看其他的编码规范：
+其他的编码规范：
 
 * [Robots & Pencils](https://github.com/RobotsAndPencils/objective-c-style-guide)
 * [New York Times](https://github.com/NYTimes/objective-c-style-guide)
@@ -770,4 +775,3 @@ self.productsRequest = [[SKProductsRequest alloc]
 * [CocoaDevCentral](http://cocoadevcentral.com/articles/000082.php)
 * [Luke Redpath](http://lukeredpath.co.uk/blog/my-objective-c-style-guide.html)
 * [Marcus Zarra](http://www.cimgf.com/zds-code-style-guide/)
-
