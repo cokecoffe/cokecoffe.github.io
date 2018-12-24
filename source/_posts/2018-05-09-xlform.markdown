@@ -1,0 +1,267 @@
+---
+layout: "post"
+title: "XLForm"
+date: "2018-05-09 11:03"
+categories: AppTeam
+---
+
+## XLForm基础
+
+### 简介
+XLForm 是最灵活且最强大的创建动态表单的iOS库。
+项目链接:[https://github.com/xmartlabs/XLForm](https://github.com/xmartlabs/XLForm)
+本文作者:武昭宁
+
+### 创建
+
+1. 集成XLForm到项目
+2. 创建继承自`XLFormViewController`的控制器
+3. 在控制器中创建表单
+    ```
+    -(void)initializeForm{
+
+        XLFormDescriptor * form;
+        XLFormSectionDescriptor * section;
+        XLFormRowDescriptor * row;
+
+        form = [XLFormDescriptor formDescriptor];
+
+        section = [XLFormSectionDescriptor formSectionWithTitle:@"section 1"];
+        [form addFormSection:section];
+
+        row = [XLFormRowDescriptor formRowDescriptorWithTag:@"realExamples" rowType:ZNFormRowDescriptorTypeInfo title:@"工单编码:"];
+        [section addFormRow:row];
+
+        self.form = form;
+
+    }
+    ```
+    `self.form = form;` //把创建的表单赋值给当前控制器的表单，不然不显示
+
+### 基本类的说明
+创建一个表单，主要用到了三个类：
+* XLFormRowDescriptor
+* XLFormSectionDescriptor
+* XLFormDescriptor
+
+一种表单定义是一个`XLFormDescriptor`实例包含一个或多个部分（`XLFormSectionDescriptor`实例），每部分包含几行（`XLFormRowDescriptor`实例）。你可能已经注意到DSL结构模拟的一个表格的结构（Table -->> Sections -- >> Rows）。由此产生的表格视图的结构（sections and rows order)）反映了定义的结构
+
+### 自定义行
+
+创建一个自定义cell需要继承自`XLFormBaseCell`，需要遵循`XLFormDescriptorCell`协议
+```
+@protocol XLFormDescriptorCell <NSObject>
+
+@required
+
+@property (nonatomic, weak) XLFormRowDescriptor * rowDescriptor;
+
+// initialise all objects such as Arrays, UIControls etc...
+-(void)configure;
+// update cell when it about to be presented
+-(void)update;
+
+@optional
+
+// height of the cell
++(CGFloat)formDescriptorCellHeightForRowDescriptor:(XLFormRowDescriptor *)rowDescriptor;
+// called to check if cell can became first responder
+-(BOOL)formDescriptorCellCanBecomeFirstResponder;
+// called to ask cell to assign first responder to relevant UIView.
+-(BOOL)formDescriptorCellBecomeFirstResponder;
+// called when cell is selected
+-(void)formDescriptorCellDidSelectedWithFormController:(XLFormViewController *)controller;
+// http parameter name used for network request
+-(NSString *)formDescriptorHttpParameterName;
+
+// is invoked when cell becomes firstResponder, could be used for change how the cell looks like when it's the forst responder.
+-(void)highlight;
+// is invoked when cell resign firstResponder
+-(void)unhighlight;
+
+
+@end
+```
+
+其中有两个必须要实现的方法：
+* -(void)configure;     //初始化配置
+* -(void)update;    //更新数据
+
+一旦一个自定义cell已经建立，`cellClassesForRowDescriptorTypes` 添加这个cell的定义。
+一般注册cell在自定义cell的`+(void)load`方法中进行，即
+```
++(void)load{
+   [[XLFormViewController cellClassesForRowDescriptorTypes] setObject:[MYCustomCellClass class] forKey:kMyAppCustomCellType];
+}
+```
+
+<font color=red>创建一个自定义cell最少实现三个方法：</font>
+> -(void)configure;
+>
+> -(void)update;
+>
+> +(void)load   //不是必须，但推荐在这里进行注册操作
+
+
+## 一些常用功能
+
+### 表单取值
+
+* 可以通过`-(NSDictionary *)formValues`方法来获取表单的所有值，通过这个方法得到的是一个字典，字典中的key value 对应`XLFormRowDescriptor`的tag 和 value,
+    * 但是要注意只有对`XLFormRowDescriptor`设置了tag值才可以通过该方法取到
+    * 如果两个`XLFormRowDescriptor`的tag值相同，则通过`-(NSDictionary *)formValues`取到的字典中，只存在后加入的`XLFormRowDescriptor`的值
+* 可以通过tag获取`XLFormRowDescriptor`,再进行取值
+    ```
+    XLFormRowDescriptor *textViewRowDescriptor = [self.form formRowWithTag:@"place"];
+    NSString *place = textViewRowDescriptor.value;
+    ```
+
+### 点击事件的实现
+通过实现代理方法`- (void)formDescriptorCellDidSelectedWithFormController:(XLFormViewController *)controller`来实现cell的点击事件，当点击cell的时候会触发该方法。
+
+ 如果想在控制器中实现点击事件可以使用Action对象
+
+`XLFormSectionDescriptor`本身有一个`XLFormAction`类型的属性`action`，`XLFormAction`的类里包含一些block，方便我们在控制器中处理cell的点击事件。
+
+首先在自定义的cell中
+```
+- (void)formDescriptorCellDidSelectedWithFormController:(XLFormViewController *)controller{
+    if (self.rowDescriptor.action.formSelector){
+        [controller performFormSelector:self.rowDescriptor.action.formSelector withObject:self.rowDescriptor];
+    }
+    ...
+}
+```
+在控制器中
+```
+ row = [XLFormRowDescriptor formRowDescriptorWithTag:@"submit" rowType:ZNFormRowDescriptorTypeSubmitBtn title:@""];
+ row.value = @"提交";
+ row.action.formSelector = @selector(submitClick);
+ [section addFormRow:row];
+
+ ...
+ - (void)submitClick{
+
+ }
+```
+
+### 校验表单数据
+
+校验器
+```
+row = [XLFormRowDescriptor formRowDescriptorWithTag:@"int" rowType:XLFormRowDescriptorTypeInteger title:@"Integer"];
+[row.cellConfigAtConfigure setObject:@"Required..." forKey:@"textField.placeholder"];
+[row.cellConfigAtConfigure setObject:@(NSTextAlignmentRight) forKey:@"textField.textAlignment"];
+row.required = YES;
+[row addValidator:[XLFormRegexValidator formRegexValidatorWithMsg:@"greater than 50 and less than 100" regex:@"^([5-9][0-9]|100)$"]];
+[section addFormRow:row];
+```
+得到所有行验证错误我们可以调用xlformviewcontroller方法：
+`-(NSArray *)formValidationErrors;`
+
+也可以自定义一个校验器，实现常用的校验方法，方便调用，自定义的校验器必须要遵循`XLFormValidatorProtocol`协议
+```
+#import "XLFormValidatorProtocol.h"
+
+@interface MyFormValidator : NSObject<XLFormValidatorProtocol>
++(MyFormValidator *)passwordValidator;
+@end
+
+#import "MyFormValidator.h"
+#import "XLFormValidationStatus.h"
+#import "XLFormRegexValidator.h"
+
+@implementation MyFormValidator
+
+//必须要实现的协议方法
+-(XLFormValidationStatus *)isValid:(XLFormRowDescriptor *)row
+{
+    return [XLFormValidationStatus formValidationStatusWithMsg:nil status:YES rowDescriptor:row];
+}
+
+
+#pragma mark - Validators
+
++(XLFormValidator *)passwordValidator
+{
+    return [XLFormRegexValidator formRegexValidatorWithMsg:@"At least 6, max 32 characters" regex:@"^(?=.*\\d)(?=.*[A-Za-z]).{6,32}$"];
+}
+
+
+@end
+
+```
+使用自定义的校验器
+```
+ row = [XLFormRowDescriptor formRowDescriptorWithTag:@"password" rowType:XLFormRowDescriptorTypePassword title:@"Password"];
+ [row addValidator:[MyFormValidator passwordValidator]];
+ [section addFormRow:row];
+```
+
+
+### 行的附加配置
+
+可以通过kvc的方式进行一些额外的属性配置你只需要去cellconfig或cellconfigatconfigure字典属性添加属性。cellconfig和cellconfigatconfigure之间的主要区别是时属性设置。cellconfig属性设置一个cell每次即将显示。cellconfigatconfigure，设置属性后的cell 执行init方法称为只有一次。
+
+
+```
+row = [XLFormRowDescriptor formRowDescriptorWithTag:@"place" rowType:ZNFormRowDescriptorTypeTextView title:@"故障位置："];
+[row.cellConfig setObject:@(10) forKey:@"textViewMaxNumberOfCharacters"];
+[section addFormRow:row];
+```
+
+### 监听行的value值的改变
+
+* 通过监听一行的数据值来决定另一行的状态，如显隐，禁用等
+
+  >hidden属性控制显示隐藏  disabled属性控制是否可以交互
+
+  实现下面的方法
+
+  注意要先实现`super方法`
+```
+-(void)formRowDescriptorValueHasChanged:(XLFormRowDescriptor *)rowDescriptor oldValue:(id)oldValue newValue:(id)newValue{
+    // super implmentation MUST be called
+
+    [super formRowDescriptorValueHasChanged:rowDescriptor oldValue:oldValue newValue:newValue];
+
+    if ([rowDescriptor.tag isEqualToString:@"OrdersPerson"]) {
+       ...
+    }
+}
+```
+
+* 另一种动态显示的方式
+```
+row = [XLFormRowDescriptor formRowDescriptorWithTag:@"switch" rowType:ZNFormRowDescriptorTypeSwitch title:@"是否显示section2"];
+row.value = @1;
+[section addFormRow:row];
+
+section = [XLFormSectionDescriptor formSectionWithTitle:@"测试表单section2"];
+section.hidden = [NSString stringWithFormat:@"$switch==0"];
+[form addFormSection:section];
+```
+
+### 动态添加行和删除行
+
+* 点击一行时在这一行的下面添加行或删除行,在自定义行的点击事件中实现
+```
+-(void)formDescriptorCellDidSelectedWithFormController:(XLFormViewController *)controller
+{
+    [self.formViewController.tableView deselectRowAtIndexPath:[controller.form indexPathOfFormRow:self.rowDescriptor] animated:YES];
+    NSIndexPath * selectedRowPath = [self.formViewController.form indexPathOfFormRow:self.rowDescriptor];
+    NSIndexPath * nextRowPath = [NSIndexPath indexPathForRow:selectedRowPath.row + 1 inSection:selectedRowPath.section];
+    XLFormRowDescriptor * nextFormRow = [self.formViewController.form formRowAtIndex:nextRowPath];
+
+    XLFormSectionDescriptor * formSection = [self.formViewController.form.formSections objectAtIndex:nextRowPath.section];
+    XLFormRowDescriptor * nextRowDescriptor = [XLFormRowDescriptor formRowDescriptorWithTag:nil rowType:ZNFormRowDescriptorTypeMaterielDetailBottom];
+    //添加
+    [formSection addFormRow:nextRowDescriptor
+    afterRow:self.rowDescriptor];
+    //删除
+    [self.rowDescriptor.sectionDescriptor removeFormRow:nextFormRow];
+}
+```
+
+
+参考文献  [https://www.jianshu.com/p/679e32976fa1](https://www.jianshu.com/p/679e32976fa1)
