@@ -280,6 +280,353 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://cokecoffe.github.io/2018/12/24/Native-JS-Guide/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="cokecoffe">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/cc_avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Cokecoffe's Notes">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/12/24/Native-JS-Guide/" itemprop="url">Native_JS_Guide</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-12-24T14:48:00+08:00">
+                2018-12-24
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/AppTeam/" itemprop="url" rel="index">
+                    <span itemprop="name">AppTeam</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/12/24/Native-JS-Guide/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2018/12/24/Native-JS-Guide/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="平安社区通用H5业务接入指南"><a href="#平安社区通用H5业务接入指南" class="headerlink" title="平安社区通用H5业务接入指南"></a>平安社区通用H5业务接入指南</h1><p>使用的data参数规则如下</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">action  不可为空  方法名  调用原生函数  与  原生函数命名统一</span><br><span class="line">needCallBack  不可为空  默认为0    是否需要原生回调</span><br><span class="line">message  不可为空,  使用场景为显示页面错误等供原生使用</span><br><span class="line">parameter  可为空  附加参数,用于复杂业务时,向原生传递参数 json结构</span><br></pre></td></tr></table></figure>
+<p>例如</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&#123; </span><br><span class="line">&quot;action&quot;:&quot;jsNGetToken&quot;,</span><br><span class="line">&quot;needCallBack&quot;:&quot;1&quot;,</span><br><span class="line">&quot;message&quot;:&quot;获取Token&quot;,</span><br><span class="line">&quot;parameter&quot;:&#123;</span><br><span class="line">&quot;state&quot;:1</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>返回结果</p>
+<table>
+<thead>
+<tr>
+<th>参数名称</th>
+<th>必选</th>
+<th>类型</th>
+<th>参数描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>code</td>
+<td>true</td>
+<td>int</td>
+<td>返回结果状态（0成功-1失败）</td>
+</tr>
+<tr>
+<td>msg</td>
+<td>true</td>
+<td>string</td>
+<td>返回结果信息</td>
+</tr>
+<tr>
+<td>data</td>
+<td>true</td>
+<td>json</td>
+<td>返回结果体</td>
+</tr>
+</tbody>
+</table>
+<p>例如</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&#123; </span><br><span class="line">&quot;code&quot;:0,</span><br><span class="line">&quot;msg&quot;:&quot;成功&quot;,</span><br><span class="line">&quot;data&quot;:&#123; </span><br><span class="line">&quot;img&quot;:&quot;youlife&quot;</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="JS调取Native-原生"><a href="#JS调取Native-原生" class="headerlink" title="JS调取Native(原生)"></a>JS调取Native(原生)</h2><p>原生端handerName为nativeListener并提供action如下</p>
+<hr>
+<h3 id="jsNGetPhoto（获取图片）"><a href="#jsNGetPhoto（获取图片）" class="headerlink" title="jsNGetPhoto（获取图片）"></a>jsNGetPhoto（获取图片）</h3><p><strong>调取此方法原生端显示选择图片的弹窗</strong></p>
+<p><em>js端调取原生的选择图片时使用</em></p>
+<p>后期需要添加参数再协商</p>
+<p>data结构如下</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&#123; </span><br><span class="line">&quot;action&quot;:&quot;jsNGetPhoto&quot;,</span><br><span class="line">&quot;needCallBack&quot;:&quot;1&quot;,</span><br><span class="line">&quot;message&quot;:&quot;获取照片&quot;,</span><br><span class="line">&quot;parameter&quot;:&#123; &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>返回结果</p>
+<table>
+<thead>
+<tr>
+<th>参数名称</th>
+<th>必选</th>
+<th>类型</th>
+<th>参数描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>code</td>
+<td>true</td>
+<td>int</td>
+<td>返回结果状态</td>
+</tr>
+<tr>
+<td>msg</td>
+<td>true</td>
+<td>string</td>
+<td>返回结果信息</td>
+</tr>
+<tr>
+<td>data</td>
+<td>true</td>
+<td>json</td>
+<td>返回结果体</td>
+</tr>
+<tr>
+<td>img</td>
+<td>true</td>
+<td>string</td>
+<td>返回图片的base64</td>
+</tr>
+</tbody>
+</table>
+<p>例如</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&#123; </span><br><span class="line">&quot;code&quot;:0,</span><br><span class="line">&quot;msg&quot;:&quot;成功&quot;,</span><br><span class="line">&quot;data&quot;:&#123; </span><br><span class="line">&quot;img&quot;:&quot;youlife&quot;</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<hr>
+<h3 id="jsNGetToken（获取token）"><a href="#jsNGetToken（获取token）" class="headerlink" title="jsNGetToken（获取token）"></a>jsNGetToken（获取token）</h3><p><strong>调取此方法原生端会返回当前用户token</strong></p>
+<p><em>js端需要原生端的授权（token）时调用</em></p>
+<table>
+<thead>
+<tr>
+<th>参数名称</th>
+<th>必选</th>
+<th>参数描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>business</td>
+<td>true</td>
+<td>需要授权的业务</td>
+</tr>
+</tbody>
+</table>
+<p>data结构如下</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&#123; </span><br><span class="line">&quot;action&quot;:&quot;jsNGetToken&quot;,</span><br><span class="line">&quot;needCallBack&quot;:&quot;1&quot;,</span><br><span class="line">&quot;message&quot;:&quot;获取token&quot;,</span><br><span class="line">&quot;parameter&quot;:&#123; </span><br><span class="line">&quot;business&quot;:&quot;xxx业务&quot;</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>返回结果</p>
+<table>
+<thead>
+<tr>
+<th>参数名称</th>
+<th>必选</th>
+<th>类型</th>
+<th>参数描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>code</td>
+<td>true</td>
+<td>int</td>
+<td>返回结果状态</td>
+</tr>
+<tr>
+<td>msg</td>
+<td>true</td>
+<td>string</td>
+<td>返回结果信息</td>
+</tr>
+<tr>
+<td>data</td>
+<td>true</td>
+<td>json</td>
+<td>返回结果体</td>
+</tr>
+<tr>
+<td>token</td>
+<td>true</td>
+<td>string</td>
+<td>返回token</td>
+</tr>
+</tbody>
+</table>
+<p>例如</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&#123; </span><br><span class="line">&quot;code&quot;:0,</span><br><span class="line">&quot;msg&quot;:&quot;成功&quot;,</span><br><span class="line">&quot;data&quot;:&#123; </span><br><span class="line">&quot;token&quot;:&quot;klsdjflksdjkfldsklkfj&quot;</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<hr>
+<h3 id="jsNInvalidLogin（登录失效）"><a href="#jsNInvalidLogin（登录失效）" class="headerlink" title="jsNInvalidLogin（登录失效）"></a>jsNInvalidLogin（登录失效）</h3><p><strong>调取此方法原生端会调取登录界面</strong></p>
+<p><em>js端调取后台接口token失效时调用</em></p>
+<p>data结构如下</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&#123; </span><br><span class="line">&quot;action&quot;:&quot;jsNInvalidLogin&quot;,</span><br><span class="line">&quot;needCallBack&quot;:&quot;1&quot;,</span><br><span class="line">&quot;message&quot;:&quot;登录失效&quot;,</span><br><span class="line">&quot;parameter&quot;:&#123; &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<hr>
+<h3 id="jsNShareWeb（调用分享）"><a href="#jsNShareWeb（调用分享）" class="headerlink" title="jsNShareWeb（调用分享）"></a>jsNShareWeb（调用分享）</h3><p><strong>调取此方法原生端会显示分享弹窗</strong></p>
+<p><em>js端需要分享时调用</em></p>
+<table>
+<thead>
+<tr>
+<th>参数名称</th>
+<th>必选</th>
+<th>参数描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>shareUrl</td>
+<td>true</td>
+<td>需要分享的链接</td>
+</tr>
+<tr>
+<td>shareTitle</td>
+<td>true</td>
+<td>需要分享的标题</td>
+</tr>
+<tr>
+<td>shareContext</td>
+<td>true</td>
+<td>需要分享的内容</td>
+</tr>
+<tr>
+<td>imgUrl</td>
+<td>false</td>
+<td>需要分享的图片</td>
+</tr>
+</tbody>
+</table>
+<p>data结构如下</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&#123; </span><br><span class="line">&quot;action&quot;:&quot;jsNShareWeb&quot;,</span><br><span class="line">&quot;needCallBack&quot;:&quot;1&quot;,</span><br><span class="line">&quot;message&quot;:&quot;调用分享&quot;,</span><br><span class="line">&quot;parameter&quot;:&#123;</span><br><span class="line">&quot;shareUrl&quot;:&quot;http://www.baidu.com&quot;,</span><br><span class="line">&quot;shareContext&quot;:&quot;shareContext&quot;,</span><br><span class="line">&quot;shareTitle&quot;:&quot;shareTitle&quot;,</span><br><span class="line">&quot;imgUrl&quot;:&quot;&quot;,</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<hr>
+<h3 id="jsNShowLoading（显示加载框）"><a href="#jsNShowLoading（显示加载框）" class="headerlink" title="jsNShowLoading（显示加载框）"></a>jsNShowLoading（显示加载框）</h3><p><strong>调取此方法原生端会显示加载框（调此方法必须调用jsNDismissLoading）</strong></p>
+<p><em>js端需要显示加载框时调用</em></p>
+<h3 id="jsNDismissLoading（隐藏加载框）"><a href="#jsNDismissLoading（隐藏加载框）" class="headerlink" title="jsNDismissLoading（隐藏加载框）"></a>jsNDismissLoading（隐藏加载框）</h3><p><strong>调取此方法原生端会隐藏加载弹框</strong></p>
+<p><em>js端需要隐藏加载弹框时调用</em></p>
+<h3 id="jsNShowLoadFailed（加载失败）"><a href="#jsNShowLoadFailed（加载失败）" class="headerlink" title="jsNShowLoadFailed（加载失败）"></a>jsNShowLoadFailed（加载失败）</h3><p><strong>调取此方法原生端会显示加载失败（调此方法必须调用jsNShowContent）</strong></p>
+<p><em>js端需要显示加载失败时调用</em></p>
+<h3 id="jsNShowNoNetwork（显示无网络）"><a href="#jsNShowNoNetwork（显示无网络）" class="headerlink" title="jsNShowNoNetwork（显示无网络）"></a>jsNShowNoNetwork（显示无网络）</h3><p><strong>调取此方法原生端会显示无网络（调此方法必须调用jsNShowContent）</strong></p>
+<p><em>js端需要显示加载失败时调用</em></p>
+<p>###jsNShowContent（显示内容页）<br><strong>调取此方法原生端会显示正常页面</strong></p>
+<p><em>js端调取加载失败jsNShowLoadFailed或者无网络jsNShowNoNetwork后调用</em></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://cokecoffe.github.io/2018/05/09/2018-05-09-xlform/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -384,7 +731,7 @@
       
         
           
-            <h2 id="XLForm基础"><a href="#XLForm基础" class="headerlink" title="XLForm基础"></a>XLForm基础</h2><h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><p>XLForm 是最灵活且最强大的创建动态表单的iOS库。<a href="https://github.com/xmartlabs/XLForm" target="_blank" rel="noopener">项目链接 https://github.com/xmartlabs/XLForm</a><br>作者:武昭宁</p>
+            <h2 id="XLForm基础"><a href="#XLForm基础" class="headerlink" title="XLForm基础"></a>XLForm基础</h2><h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><p>XLForm 是最灵活且最强大的创建动态表单的iOS库。<br>项目链接:<a href="https://github.com/xmartlabs/XLForm" target="_blank" rel="noopener">https://github.com/xmartlabs/XLForm</a><br>本文作者:武昭宁</p>
 <h3 id="创建"><a href="#创建" class="headerlink" title="创建"></a>创建</h3><ol>
 <li>集成XLForm到项目</li>
 <li>创建继承自<code>XLFormViewController</code>的控制器</li>
@@ -1766,148 +2113,13 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://cokecoffe.github.io/2018/04/19/hello-world/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="cokecoffe">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/cc_avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Cokecoffe's Notes">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/04/19/hello-world/" itemprop="url">Hello World</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-04-19T11:57:23+08:00">
-                2018-04-19
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2018/04/19/hello-world/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2018/04/19/hello-world/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
+  <nav class="pagination">
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
+  </nav>
+
 
 
           </div>
@@ -1951,7 +2163,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">10</span>
+                <span class="site-state-item-count">11</span>
                 <span class="site-state-item-name">posts</span>
               </a>
             </div>
