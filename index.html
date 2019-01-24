@@ -280,6 +280,159 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://cokecoffe.github.io/2019/01/24/UserManager/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="cokecoffe">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/cc_avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Cokecoffe's Notes">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/01/24/UserManager/" itemprop="url">UserManager</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-01-24T15:44:26+08:00">
+                2019-01-24
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/01/24/UserManager/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2019/01/24/UserManager/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="UserManager"><a href="#UserManager" class="headerlink" title="UserManager"></a>UserManager</h1><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>涉及到用户登录的App，需要维护用户信息、并且处理用户登录状态。以下方案为平安社区各App中关于用户管理的技术实现方案。</p>
+<h2 id="类关系"><a href="#类关系" class="headerlink" title="类关系"></a>类关系</h2><h3 id="与用户状态相关的类"><a href="#与用户状态相关的类" class="headerlink" title="与用户状态相关的类"></a>与用户状态相关的类</h3><p>0.<strong>UserManager</strong>(用户管理类）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">负责持久化用户信息</span><br><span class="line">负责与服务端(包含第三方)通讯</span><br><span class="line">负责派发登录成功、失效的通知</span><br></pre></td></tr></table></figure>
+<p>1.<strong>LoginViewController</strong>(登陆页面)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">负责触发登录操作</span><br></pre></td></tr></table></figure>
+<p>2.<strong>LogoutViewController</strong>(注销页面)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">负责触发注销操作</span><br></pre></td></tr></table></figure>
+<p>3.<strong>ViewManager</strong>(页面管理类)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">通过接收登录、注销通知维护页面，例如恢复视图初始层级、弹出登陆页面等</span><br></pre></td></tr></table></figure>
+<p>4.<strong>BaseViewController</strong>(页面基类）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">通过接收登录、注销通知完成一些页面初始化操作，例如输入框清空等。</span><br><span class="line">子类重写对应方法进行特殊化处理，例如暂停、重启定时器等</span><br></pre></td></tr></table></figure>
+<p>5.<strong>PushMessageManager</strong>(推送管理类)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">通过接收登陆、注销通知维护第三方推送绑定、解绑操作</span><br></pre></td></tr></table></figure>
+<p>6.<strong>BaseRequest</strong>(网络请求基类)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">调用接口后接收登录状态，触发UserManager的注销操作</span><br></pre></td></tr></table></figure>
+<p>6.<strong>Other</strong>(其他)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">其他跟用户状态相关的类</span><br></pre></td></tr></table></figure>
+<h3 id="通讯示意图"><a href="#通讯示意图" class="headerlink" title="通讯示意图"></a>通讯示意图</h3><p><img src="../images/usermanager.png" alt="Class-RelationShip"></p>
+<h3 id="UserManager实现"><a href="#UserManager实现" class="headerlink" title="UserManager实现"></a>UserManager实现</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">-(User*)getCurrentUser;</span><br><span class="line">-(void)loginWithUserNamexxx;</span><br><span class="line">-(void)logout:(BOOL)isUser;//isUser：是否是用户主动注销</span><br></pre></td></tr></table></figure>
+<h3 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h3><p>1.登陆失效后，UserManager清空本地用户信息和发送注销通知的顺序:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">建议先清空掉本地信息再发送全局注销通知，因为各类需要实时的获取到登陆状态进行处理。至于需要处理服务端用户状态的（例如注销推送服务），则在发送通知时附带一份用户拷贝信息。</span><br></pre></td></tr></table></figure>
+<p>2.登陆成功后，UserManager持久化用户信息和发送登陆成功通知顺序同上。</p>
+<p>3.注销分为主动（用户点击注销）和被动（调用接口），在调用usermanager的logout和发送注销通知的时候需要加以区分。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://cokecoffe.github.io/2018/12/24/Native-JS-Guide/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1956,164 +2109,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://cokecoffe.github.io/2018/04/20/2018-04-20-Objective-C Style/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="cokecoffe">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/cc_avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Cokecoffe's Notes">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/04/20/2018-04-20-Objective-C Style/" itemprop="url">Objective-C Code Style</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-04-20T00:00:00+08:00">
-                2018-04-20
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/AppTeam/" itemprop="url" rel="index">
-                    <span itemprop="name">AppTeam</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2018/04/20/2018-04-20-Objective-C Style/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2018/04/20/2018-04-20-Objective-C Style/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h1 id="Objective-C-Code-Style"><a href="#Objective-C-Code-Style" class="headerlink" title="Objective-C Code Style"></a>Objective-C Code Style</h1><p>这篇编码风格指南概括了<a href="https://github.com/raywenderlich/objective-c-style-guide#language" target="_blank" rel="noopener">Raywenderlich Objective-c-style-guide</a>，并做了增删修改，作为平安社区Objective-C的编码规范。</p>
-<h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>我们制定Objective-C编码规范的原因是我们能够在团队协作中代码保持优雅和一致。即使我们有很多不同的人员来完成不同的项目。</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/04/20/2018-04-20-Objective-C Style/#more" rel="contents">
-              Read more &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2164,7 +2159,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-count">12</span>
                 <span class="site-state-item-name">posts</span>
               </a>
             </div>
@@ -2243,7 +2238,7 @@
         <div class="copyright" >
   
   &copy; 
-  <span itemprop="copyrightYear">2018</span>
+  <span itemprop="copyrightYear">2019</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>

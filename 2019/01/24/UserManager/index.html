@@ -94,17 +94,19 @@
 
 
 
-<meta name="description" content="Code Review CheckList本规范作为Code Review的依据">
+<meta name="description" content="UserManager前言涉及到用户登录的App，需要维护用户信息、并且处理用户登录状态。以下方案为平安社区各App中关于用户管理的技术实现方案。 类关系与用户状态相关的类0.UserManager(用户管理类） 123负责持久化用户信息负责与服务端(包含第三方)通讯负责派发登录成功、失效的通知 1.LoginViewController(登陆页面) 1负责触发登录操作 2.LogoutViewC">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Code Review CheckList">
-<meta property="og:url" content="http://cokecoffe.github.io/2018/04/23/2018-04-23-code-review-checklist/index.html">
+<meta property="og:title" content="UserManager">
+<meta property="og:url" content="http://cokecoffe.github.io/2019/01/24/UserManager/index.html">
 <meta property="og:site_name" content="Cokecoffe&#39;s Notes">
-<meta property="og:description" content="Code Review CheckList本规范作为Code Review的依据">
+<meta property="og:description" content="UserManager前言涉及到用户登录的App，需要维护用户信息、并且处理用户登录状态。以下方案为平安社区各App中关于用户管理的技术实现方案。 类关系与用户状态相关的类0.UserManager(用户管理类） 123负责持久化用户信息负责与服务端(包含第三方)通讯负责派发登录成功、失效的通知 1.LoginViewController(登陆页面) 1负责触发登录操作 2.LogoutViewC">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2018-04-26T07:29:01.392Z">
+<meta property="og:image" content="http://cokecoffe.github.io/2019/01/24/images/usermanager.png">
+<meta property="og:updated_time" content="2019-01-24T08:05:37.148Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Code Review CheckList">
-<meta name="twitter:description" content="Code Review CheckList本规范作为Code Review的依据">
+<meta name="twitter:title" content="UserManager">
+<meta name="twitter:description" content="UserManager前言涉及到用户登录的App，需要维护用户信息、并且处理用户登录状态。以下方案为平安社区各App中关于用户管理的技术实现方案。 类关系与用户状态相关的类0.UserManager(用户管理类） 123负责持久化用户信息负责与服务端(包含第三方)通讯负责派发登录成功、失效的通知 1.LoginViewController(登陆页面) 1负责触发登录操作 2.LogoutViewC">
+<meta name="twitter:image" content="http://cokecoffe.github.io/2019/01/24/images/usermanager.png">
 
 
 
@@ -133,13 +135,13 @@
 
 
 
-  <link rel="canonical" href="http://cokecoffe.github.io/2018/04/23/2018-04-23-code-review-checklist/"/>
+  <link rel="canonical" href="http://cokecoffe.github.io/2019/01/24/UserManager/"/>
 
 
 
 
 
-  <title>Code Review CheckList | Cokecoffe's Notes</title>
+  <title>UserManager | Cokecoffe's Notes</title>
   
 
 
@@ -282,7 +284,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://cokecoffe.github.io/2018/04/23/2018-04-23-code-review-checklist/">
+    <link itemprop="mainEntityOfPage" href="http://cokecoffe.github.io/2019/01/24/UserManager/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="cokecoffe">
@@ -299,7 +301,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Code Review CheckList</h1>
+          <h1 class="post-title" itemprop="name headline">UserManager</h1>
         
 
         <div class="post-meta">
@@ -311,8 +313,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-04-23T16:09:00+08:00">
-                2018-04-23
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-01-24T15:44:26+08:00">
+                2019-01-24
               </time>
             
 
@@ -322,28 +324,6 @@
           </span>
 
           
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/AppTeam/" itemprop="url" rel="index">
-                    <span itemprop="name">AppTeam</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
 
           
             
@@ -352,9 +332,9 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2018/04/23/2018-04-23-code-review-checklist/#comments" itemprop="discussionUrl">
+                <a href="/2019/01/24/UserManager/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2018/04/23/2018-04-23-code-review-checklist/" itemprop="commentCount"></span>
+                        data-disqus-identifier="2019/01/24/UserManager/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -382,33 +362,29 @@
       
 
       
-        <h1 id="Code-Review-CheckList"><a href="#Code-Review-CheckList" class="headerlink" title="Code Review CheckList"></a>Code Review CheckList</h1><p>本规范作为Code Review的依据</p>
-<a id="more"></a>
-<h3 id="架构-设计-常规"><a href="#架构-设计-常规" class="headerlink" title="架构/设计/常规"></a>架构/设计/常规</h3><ol>
-<li><p>文件</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">文件存放是否根据对应文件夹归类</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>头文件引用</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">是否有重复、无用的引用</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>单一职责</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">一个类、一个方法只能做一件事，适当做抽离，提高复用性</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>注释</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">是否有必要的注释，注释格式是否规范</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>命名</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">类、方法 命名是否符合规范</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>代码格式</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">代码是否进行过格式化，有否多余空格等</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>无用代码</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">是否提交了测试代码、无用的注释</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<h3 id="编码风格"><a href="#编码风格" class="headerlink" title="编码风格"></a>编码风格</h3><p><a href="https://cokecoffe.github.io/2018/04/20/2018-04-20-Objective-C%20Style/">《Objective-C code style》</a></p>
-<p><a href="https://cokecoffe.github.io/2018/04/21/2018-4-21-android-java-code-style/">《Android-Java Code Style》</a></p>
+        <h1 id="UserManager"><a href="#UserManager" class="headerlink" title="UserManager"></a>UserManager</h1><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>涉及到用户登录的App，需要维护用户信息、并且处理用户登录状态。以下方案为平安社区各App中关于用户管理的技术实现方案。</p>
+<h2 id="类关系"><a href="#类关系" class="headerlink" title="类关系"></a>类关系</h2><h3 id="与用户状态相关的类"><a href="#与用户状态相关的类" class="headerlink" title="与用户状态相关的类"></a>与用户状态相关的类</h3><p>0.<strong>UserManager</strong>(用户管理类）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">负责持久化用户信息</span><br><span class="line">负责与服务端(包含第三方)通讯</span><br><span class="line">负责派发登录成功、失效的通知</span><br></pre></td></tr></table></figure>
+<p>1.<strong>LoginViewController</strong>(登陆页面)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">负责触发登录操作</span><br></pre></td></tr></table></figure>
+<p>2.<strong>LogoutViewController</strong>(注销页面)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">负责触发注销操作</span><br></pre></td></tr></table></figure>
+<p>3.<strong>ViewManager</strong>(页面管理类)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">通过接收登录、注销通知维护页面，例如恢复视图初始层级、弹出登陆页面等</span><br></pre></td></tr></table></figure>
+<p>4.<strong>BaseViewController</strong>(页面基类）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">通过接收登录、注销通知完成一些页面初始化操作，例如输入框清空等。</span><br><span class="line">子类重写对应方法进行特殊化处理，例如暂停、重启定时器等</span><br></pre></td></tr></table></figure>
+<p>5.<strong>PushMessageManager</strong>(推送管理类)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">通过接收登陆、注销通知维护第三方推送绑定、解绑操作</span><br></pre></td></tr></table></figure>
+<p>6.<strong>BaseRequest</strong>(网络请求基类)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">调用接口后接收登录状态，触发UserManager的注销操作</span><br></pre></td></tr></table></figure>
+<p>6.<strong>Other</strong>(其他)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">其他跟用户状态相关的类</span><br></pre></td></tr></table></figure>
+<h3 id="通讯示意图"><a href="#通讯示意图" class="headerlink" title="通讯示意图"></a>通讯示意图</h3><p><img src="../images/usermanager.png" alt="Class-RelationShip"></p>
+<h3 id="UserManager实现"><a href="#UserManager实现" class="headerlink" title="UserManager实现"></a>UserManager实现</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">-(User*)getCurrentUser;</span><br><span class="line">-(void)loginWithUserNamexxx;</span><br><span class="line">-(void)logout:(BOOL)isUser;//isUser：是否是用户主动注销</span><br></pre></td></tr></table></figure>
+<h3 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h3><p>1.登陆失效后，UserManager清空本地用户信息和发送注销通知的顺序:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">建议先清空掉本地信息再发送全局注销通知，因为各类需要实时的获取到登陆状态进行处理。至于需要处理服务端用户状态的（例如注销推送服务），则在发送通知时附带一份用户拷贝信息。</span><br></pre></td></tr></table></figure>
+<p>2.登陆成功后，UserManager持久化用户信息和发送登陆成功通知顺序同上。</p>
+<p>3.注销分为主动（用户点击注销）和被动（调用接口），在调用usermanager的logout和发送注销通知的时候需要加以区分。</p>
 
       
     </div>
@@ -433,8 +409,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/04/23/2018-04-23-git-flow/" rel="next" title="Git Flow">
-                <i class="fa fa-chevron-left"></i> Git Flow
+              <a href="/2018/12/24/Native-JS-Guide/" rel="next" title="Native_JS_Guide">
+                <i class="fa fa-chevron-left"></i> Native_JS_Guide
               </a>
             
           </div>
@@ -442,10 +418,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/04/25/2018-04-25-android-java-code-style/" rel="prev" title="Android Java Code Style">
-                Android Java Code Style <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -601,7 +573,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Code-Review-CheckList"><span class="nav-number">1.</span> <span class="nav-text">Code Review CheckList</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#架构-设计-常规"><span class="nav-number">1.0.1.</span> <span class="nav-text">架构/设计/常规</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#编码风格"><span class="nav-number">1.0.2.</span> <span class="nav-text">编码风格</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#UserManager"><span class="nav-number">1.</span> <span class="nav-text">UserManager</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言"><span class="nav-number">1.1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#类关系"><span class="nav-number">1.2.</span> <span class="nav-text">类关系</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#与用户状态相关的类"><span class="nav-number">1.2.1.</span> <span class="nav-text">与用户状态相关的类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#通讯示意图"><span class="nav-number">1.2.2.</span> <span class="nav-text">通讯示意图</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#UserManager实现"><span class="nav-number">1.2.3.</span> <span class="nav-text">UserManager实现</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#注意事项"><span class="nav-number">1.2.4.</span> <span class="nav-text">注意事项</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
@@ -751,9 +723,9 @@
     
       <script type="text/javascript">
         var disqus_config = function () {
-          this.page.url = 'http://cokecoffe.github.io/2018/04/23/2018-04-23-code-review-checklist/';
-          this.page.identifier = '2018/04/23/2018-04-23-code-review-checklist/';
-          this.page.title = 'Code Review CheckList';
+          this.page.url = 'http://cokecoffe.github.io/2019/01/24/UserManager/';
+          this.page.identifier = '2019/01/24/UserManager/';
+          this.page.title = 'UserManager';
         };
         var d = document, s = d.createElement('script');
         s.src = 'https://cokecoffe.disqus.com/embed.js';
