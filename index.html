@@ -379,7 +379,7 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">调用接口后接收登录状态，触发UserManager的注销操作</span><br></pre></td></tr></table></figure>
 <p>6.<strong>Other</strong>(其他)</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">其他跟用户状态相关的类</span><br></pre></td></tr></table></figure>
-<h3 id="通讯示意图"><a href="#通讯示意图" class="headerlink" title="通讯示意图"></a>通讯示意图</h3><p><img src="../images/usermanager.png" alt="Class-RelationShip"></p>
+<h3 id="通讯示意图"><a href="#通讯示意图" class="headerlink" title="通讯示意图"></a>通讯示意图</h3><p><img src="/images/usermanager.png" alt="Class-RelationShip"></p>
 <h3 id="UserManager实现"><a href="#UserManager实现" class="headerlink" title="UserManager实现"></a>UserManager实现</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">-(User*)getCurrentUser;</span><br><span class="line">-(void)loginWithUserNamexxx;</span><br><span class="line">-(void)logout:(BOOL)isUser;//isUser：是否是用户主动注销</span><br></pre></td></tr></table></figure>
 <h3 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h3><p>1.登陆失效后，UserManager清空本地用户信息和发送注销通知的顺序:</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">建议先清空掉本地信息再发送全局注销通知，因为各类需要实时的获取到登陆状态进行处理。至于需要处理服务端用户状态的（例如注销推送服务），则在发送通知时附带一份用户拷贝信息。</span><br></pre></td></tr></table></figure>
