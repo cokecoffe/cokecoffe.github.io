@@ -102,6 +102,8 @@ data结构如下
 
 **调取此方法原生端会返回当前用户token**
 
+![token-flow](/images/token-flow.png)
+
 *js端需要原生端的授权（token）时调用*
 
 | 参数名称 | 必选 | 参数描述 |

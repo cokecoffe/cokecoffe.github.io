@@ -43,7 +43,7 @@ git stash
 
 ## 分支管理
 
-![gitflow](git flow.png)
+![gitflow](/images/git-flow.png)
 
 ### 分支介绍
 
