@@ -12,6 +12,8 @@ XLForm 是最灵活且最强大的创建动态表单的iOS库。
 项目链接:[https://github.com/xmartlabs/XLForm](https://github.com/xmartlabs/XLForm)
 本文作者:武昭宁
 
+<!-- more -->
+
 ### 创建
 
 1. 集成XLForm到项目

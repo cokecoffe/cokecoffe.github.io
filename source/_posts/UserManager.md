@@ -2,12 +2,15 @@
 title: UserManager
 date: 2019-01-24 15:44:26
 tags:
+categories: AppTeam
 ---
 # UserManager
 
 ## 前言
 
 涉及到用户登录的App，需要维护用户信息、并且处理用户登录状态。以下方案为平安社区各App中关于用户管理的技术实现方案。
+
+<!-- more -->
 
 ## 类关系
 
@@ -59,7 +62,7 @@ tags:
 ```
 
 ### 通讯示意图
-![Class-RelationShip](../images/usermanager.png)
+![Class-RelationShip](/images/usermanager.png)
 
 ### UserManager实现
 

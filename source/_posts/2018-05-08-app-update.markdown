@@ -27,6 +27,8 @@ categories: AppTeam
 
 - 版本更新文案：
 
+<!-- more -->
+
 ### API设计
 
 ```

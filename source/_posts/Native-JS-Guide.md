@@ -49,6 +49,8 @@ parameter  可为空  附加参数,用于复杂业务时,向原生传递参数 j
 }
 ```
 
+<!-- more -->
+
 ## JS调取Native(原生)
 原生端handerName为nativeListener并提供action如下
 
