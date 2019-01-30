@@ -101,7 +101,7 @@
 <meta property="og:site_name" content="Cokecoffe&#39;s Notes">
 <meta property="og:description" content="传统的App版本升级控制是在服务端数据库里直接写入了App版本信息的数据，每次升级都需直接修改数据，容易误操作；不利于维护；没有丰富的可配置信息； 针对这些问题，对App升级检测方案进行了优化调整。 可配置项 配置生效时间：决定了此升级方案有效的下发时间  提示次数、间隔：决定App在一定时间范围内的最大提醒次数、间隔  升级方式（强制/推荐）：可控制App是否是强制更新  弹窗主题（颜色）：Ap">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2018-05-09T03:05:39.966Z">
+<meta property="og:updated_time" content="2019-01-30T02:21:48.854Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="App Update">
 <meta name="twitter:description" content="传统的App版本升级控制是在服务端数据库里直接写入了App版本信息的数据，每次升级都需直接修改数据，容易误操作；不利于维护；没有丰富的可配置信息； 针对这些问题，对App升级检测方案进行了优化调整。 可配置项 配置生效时间：决定了此升级方案有效的下发时间  提示次数、间隔：决定App在一定时间范围内的最大提醒次数、间隔  升级方式（强制/推荐）：可控制App是否是强制更新  弹窗主题（颜色）：Ap">
@@ -402,6 +402,7 @@
 <li><p>版本更新文案：</p>
 </li>
 </ul>
+<a id="more"></a>
 <h3 id="API设计"><a href="#API设计" class="headerlink" title="API设计"></a>API设计</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;version&quot;: &quot;1.2.8&quot;,//最新版本号</span><br><span class="line">  &quot;validIP&quot;: &#123;//灰度下发，指定有效网段</span><br><span class="line">    &quot;fromIP&quot;: &quot;192.168.1.1&quot;,</span><br><span class="line">    &quot;toIP&quot;: &quot;192.168.2.200&quot;</span><br><span class="line">  &#125;,</span><br><span class="line">  &quot;isForce&quot;: 0,//是否是强制更新</span><br><span class="line">  &quot;timeInterval&quot;: &quot;5&quot;,//非强制更新下提醒升级的间隔</span><br><span class="line">  &quot;information&quot;: [//更新文案</span><br><span class="line">    &quot;1.内容&quot;,</span><br><span class="line">    &quot;2.内容&quot;</span><br><span class="line">  ],</span><br><span class="line">  &quot;themeColor&quot;: &quot;0xffffff&quot;,//提示框主题颜色</span><br><span class="line">  &quot;packageUrl&quot;: &quot;https://xxx.com/pasq.apk&quot;//升级包或商店的地址</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h3 id="使用方法"><a href="#使用方法" class="headerlink" title="使用方法"></a>使用方法</h3><ol>
 <li>配置升级信息源</li>

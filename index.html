@@ -322,6 +322,28 @@
           </span>
 
           
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/AppTeam/" itemprop="url" rel="index">
+                    <span itemprop="name">AppTeam</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
 
           
             
@@ -361,32 +383,14 @@
 
       
         
-          
-            <h1 id="UserManager"><a href="#UserManager" class="headerlink" title="UserManager"></a>UserManager</h1><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>涉及到用户登录的App，需要维护用户信息、并且处理用户登录状态。以下方案为平安社区各App中关于用户管理的技术实现方案。</p>
-<h2 id="类关系"><a href="#类关系" class="headerlink" title="类关系"></a>类关系</h2><h3 id="与用户状态相关的类"><a href="#与用户状态相关的类" class="headerlink" title="与用户状态相关的类"></a>与用户状态相关的类</h3><p>0.<strong>UserManager</strong>(用户管理类）</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">负责持久化用户信息</span><br><span class="line">负责与服务端(包含第三方)通讯</span><br><span class="line">负责派发登录成功、失效的通知</span><br></pre></td></tr></table></figure>
-<p>1.<strong>LoginViewController</strong>(登陆页面)</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">负责触发登录操作</span><br></pre></td></tr></table></figure>
-<p>2.<strong>LogoutViewController</strong>(注销页面)</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">负责触发注销操作</span><br></pre></td></tr></table></figure>
-<p>3.<strong>ViewManager</strong>(页面管理类)</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">通过接收登录、注销通知维护页面，例如恢复视图初始层级、弹出登陆页面等</span><br></pre></td></tr></table></figure>
-<p>4.<strong>BaseViewController</strong>(页面基类）</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">通过接收登录、注销通知完成一些页面初始化操作，例如输入框清空等。</span><br><span class="line">子类重写对应方法进行特殊化处理，例如暂停、重启定时器等</span><br></pre></td></tr></table></figure>
-<p>5.<strong>PushMessageManager</strong>(推送管理类)</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">通过接收登陆、注销通知维护第三方推送绑定、解绑操作</span><br></pre></td></tr></table></figure>
-<p>6.<strong>BaseRequest</strong>(网络请求基类)</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">调用接口后接收登录状态，触发UserManager的注销操作</span><br></pre></td></tr></table></figure>
-<p>6.<strong>Other</strong>(其他)</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">其他跟用户状态相关的类</span><br></pre></td></tr></table></figure>
-<h3 id="通讯示意图"><a href="#通讯示意图" class="headerlink" title="通讯示意图"></a>通讯示意图</h3><p><img src="/images/usermanager.png" alt="Class-RelationShip"></p>
-<h3 id="UserManager实现"><a href="#UserManager实现" class="headerlink" title="UserManager实现"></a>UserManager实现</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">-(User*)getCurrentUser;</span><br><span class="line">-(void)loginWithUserNamexxx;</span><br><span class="line">-(void)logout:(BOOL)isUser;//isUser：是否是用户主动注销</span><br></pre></td></tr></table></figure>
-<h3 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h3><p>1.登陆失效后，UserManager清空本地用户信息和发送注销通知的顺序:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">建议先清空掉本地信息再发送全局注销通知，因为各类需要实时的获取到登陆状态进行处理。至于需要处理服务端用户状态的（例如注销推送服务），则在发送通知时附带一份用户拷贝信息。</span><br></pre></td></tr></table></figure>
-<p>2.登陆成功后，UserManager持久化用户信息和发送登陆成功通知顺序同上。</p>
-<p>3.注销分为主动（用户点击注销）和被动（调用接口），在调用usermanager的logout和发送注销通知的时候需要加以区分。</p>
-
-          
+          <h1 id="UserManager"><a href="#UserManager" class="headerlink" title="UserManager"></a>UserManager</h1><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>涉及到用户登录的App，需要维护用户信息、并且处理用户登录状态。以下方案为平安社区各App中关于用户管理的技术实现方案。</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/01/24/UserManager/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -536,8 +540,7 @@
 
       
         
-          
-            <h1 id="平安社区通用H5业务接入指南"><a href="#平安社区通用H5业务接入指南" class="headerlink" title="平安社区通用H5业务接入指南"></a>平安社区通用H5业务接入指南</h1><p>使用的data参数规则如下</p>
+          <h1 id="平安社区通用H5业务接入指南"><a href="#平安社区通用H5业务接入指南" class="headerlink" title="平安社区通用H5业务接入指南"></a>平安社区通用H5业务接入指南</h1><p>使用的data参数规则如下</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">action  不可为空  方法名  调用原生函数  与  原生函数命名统一</span><br><span class="line">needCallBack  不可为空  默认为0    是否需要原生回调</span><br><span class="line">message  不可为空,  使用场景为显示页面错误等供原生使用</span><br><span class="line">parameter  可为空  附加参数,用于复杂业务时,向原生传递参数 json结构</span><br></pre></td></tr></table></figure>
 <p>例如</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&#123; </span><br><span class="line">&quot;action&quot;:&quot;jsNGetToken&quot;,</span><br><span class="line">&quot;needCallBack&quot;:&quot;1&quot;,</span><br><span class="line">&quot;message&quot;:&quot;获取Token&quot;,</span><br><span class="line">&quot;parameter&quot;:&#123;</span><br><span class="line">&quot;state&quot;:1</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -574,167 +577,13 @@
 </table>
 <p>例如</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&#123; </span><br><span class="line">&quot;code&quot;:0,</span><br><span class="line">&quot;msg&quot;:&quot;成功&quot;,</span><br><span class="line">&quot;data&quot;:&#123; </span><br><span class="line">&quot;img&quot;:&quot;youlife&quot;</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="JS调取Native-原生"><a href="#JS调取Native-原生" class="headerlink" title="JS调取Native(原生)"></a>JS调取Native(原生)</h2><p>原生端handerName为nativeListener并提供action如下</p>
-<hr>
-<h3 id="jsNGetPhoto（获取图片）"><a href="#jsNGetPhoto（获取图片）" class="headerlink" title="jsNGetPhoto（获取图片）"></a>jsNGetPhoto（获取图片）</h3><p><strong>调取此方法原生端显示选择图片的弹窗</strong></p>
-<p><em>js端调取原生的选择图片时使用</em></p>
-<p>后期需要添加参数再协商</p>
-<p>data结构如下</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&#123; </span><br><span class="line">&quot;action&quot;:&quot;jsNGetPhoto&quot;,</span><br><span class="line">&quot;needCallBack&quot;:&quot;1&quot;,</span><br><span class="line">&quot;message&quot;:&quot;获取照片&quot;,</span><br><span class="line">&quot;parameter&quot;:&#123; &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>返回结果</p>
-<table>
-<thead>
-<tr>
-<th>参数名称</th>
-<th>必选</th>
-<th>类型</th>
-<th>参数描述</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>code</td>
-<td>true</td>
-<td>int</td>
-<td>返回结果状态</td>
-</tr>
-<tr>
-<td>msg</td>
-<td>true</td>
-<td>string</td>
-<td>返回结果信息</td>
-</tr>
-<tr>
-<td>data</td>
-<td>true</td>
-<td>json</td>
-<td>返回结果体</td>
-</tr>
-<tr>
-<td>img</td>
-<td>true</td>
-<td>string</td>
-<td>返回图片的base64</td>
-</tr>
-</tbody>
-</table>
-<p>例如</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&#123; </span><br><span class="line">&quot;code&quot;:0,</span><br><span class="line">&quot;msg&quot;:&quot;成功&quot;,</span><br><span class="line">&quot;data&quot;:&#123; </span><br><span class="line">&quot;img&quot;:&quot;youlife&quot;</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<hr>
-<h3 id="jsNGetToken（获取token）"><a href="#jsNGetToken（获取token）" class="headerlink" title="jsNGetToken（获取token）"></a>jsNGetToken（获取token）</h3><p><strong>调取此方法原生端会返回当前用户token</strong></p>
-<p><img src="/images/token-flow.png" alt="token-flow"></p>
-<p><em>js端需要原生端的授权（token）时调用</em></p>
-<table>
-<thead>
-<tr>
-<th>参数名称</th>
-<th>必选</th>
-<th>参数描述</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>business</td>
-<td>true</td>
-<td>需要授权的业务</td>
-</tr>
-</tbody>
-</table>
-<p>data结构如下</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&#123; </span><br><span class="line">&quot;action&quot;:&quot;jsNGetToken&quot;,</span><br><span class="line">&quot;needCallBack&quot;:&quot;1&quot;,</span><br><span class="line">&quot;message&quot;:&quot;获取token&quot;,</span><br><span class="line">&quot;parameter&quot;:&#123; </span><br><span class="line">&quot;business&quot;:&quot;xxx业务&quot;</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>返回结果</p>
-<table>
-<thead>
-<tr>
-<th>参数名称</th>
-<th>必选</th>
-<th>类型</th>
-<th>参数描述</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>code</td>
-<td>true</td>
-<td>int</td>
-<td>返回结果状态</td>
-</tr>
-<tr>
-<td>msg</td>
-<td>true</td>
-<td>string</td>
-<td>返回结果信息</td>
-</tr>
-<tr>
-<td>data</td>
-<td>true</td>
-<td>json</td>
-<td>返回结果体</td>
-</tr>
-<tr>
-<td>token</td>
-<td>true</td>
-<td>string</td>
-<td>返回token</td>
-</tr>
-</tbody>
-</table>
-<p>例如</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&#123; </span><br><span class="line">&quot;code&quot;:0,</span><br><span class="line">&quot;msg&quot;:&quot;成功&quot;,</span><br><span class="line">&quot;data&quot;:&#123; </span><br><span class="line">&quot;token&quot;:&quot;klsdjflksdjkfldsklkfj&quot;</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<hr>
-<h3 id="jsNInvalidLogin（登录失效）"><a href="#jsNInvalidLogin（登录失效）" class="headerlink" title="jsNInvalidLogin（登录失效）"></a>jsNInvalidLogin（登录失效）</h3><p><strong>调取此方法原生端会调取登录界面</strong></p>
-<p><em>js端调取后台接口token失效时调用</em></p>
-<p>data结构如下</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&#123; </span><br><span class="line">&quot;action&quot;:&quot;jsNInvalidLogin&quot;,</span><br><span class="line">&quot;needCallBack&quot;:&quot;1&quot;,</span><br><span class="line">&quot;message&quot;:&quot;登录失效&quot;,</span><br><span class="line">&quot;parameter&quot;:&#123; &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<hr>
-<h3 id="jsNShareWeb（调用分享）"><a href="#jsNShareWeb（调用分享）" class="headerlink" title="jsNShareWeb（调用分享）"></a>jsNShareWeb（调用分享）</h3><p><strong>调取此方法原生端会显示分享弹窗</strong></p>
-<p><em>js端需要分享时调用</em></p>
-<table>
-<thead>
-<tr>
-<th>参数名称</th>
-<th>必选</th>
-<th>参数描述</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>shareUrl</td>
-<td>true</td>
-<td>需要分享的链接</td>
-</tr>
-<tr>
-<td>shareTitle</td>
-<td>true</td>
-<td>需要分享的标题</td>
-</tr>
-<tr>
-<td>shareContext</td>
-<td>true</td>
-<td>需要分享的内容</td>
-</tr>
-<tr>
-<td>imgUrl</td>
-<td>false</td>
-<td>需要分享的图片</td>
-</tr>
-</tbody>
-</table>
-<p>data结构如下</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&#123; </span><br><span class="line">&quot;action&quot;:&quot;jsNShareWeb&quot;,</span><br><span class="line">&quot;needCallBack&quot;:&quot;1&quot;,</span><br><span class="line">&quot;message&quot;:&quot;调用分享&quot;,</span><br><span class="line">&quot;parameter&quot;:&#123;</span><br><span class="line">&quot;shareUrl&quot;:&quot;http://www.baidu.com&quot;,</span><br><span class="line">&quot;shareContext&quot;:&quot;shareContext&quot;,</span><br><span class="line">&quot;shareTitle&quot;:&quot;shareTitle&quot;,</span><br><span class="line">&quot;imgUrl&quot;:&quot;&quot;,</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<hr>
-<h3 id="jsNShowLoading（显示加载框）"><a href="#jsNShowLoading（显示加载框）" class="headerlink" title="jsNShowLoading（显示加载框）"></a>jsNShowLoading（显示加载框）</h3><p><strong>调取此方法原生端会显示加载框（调此方法必须调用jsNDismissLoading）</strong></p>
-<p><em>js端需要显示加载框时调用</em></p>
-<h3 id="jsNDismissLoading（隐藏加载框）"><a href="#jsNDismissLoading（隐藏加载框）" class="headerlink" title="jsNDismissLoading（隐藏加载框）"></a>jsNDismissLoading（隐藏加载框）</h3><p><strong>调取此方法原生端会隐藏加载弹框</strong></p>
-<p><em>js端需要隐藏加载弹框时调用</em></p>
-<h3 id="jsNShowLoadFailed（加载失败）"><a href="#jsNShowLoadFailed（加载失败）" class="headerlink" title="jsNShowLoadFailed（加载失败）"></a>jsNShowLoadFailed（加载失败）</h3><p><strong>调取此方法原生端会显示加载失败（调此方法必须调用jsNShowContent）</strong></p>
-<p><em>js端需要显示加载失败时调用</em></p>
-<h3 id="jsNShowNoNetwork（显示无网络）"><a href="#jsNShowNoNetwork（显示无网络）" class="headerlink" title="jsNShowNoNetwork（显示无网络）"></a>jsNShowNoNetwork（显示无网络）</h3><p><strong>调取此方法原生端会显示无网络（调此方法必须调用jsNShowContent）</strong></p>
-<p><em>js端需要显示加载失败时调用</em></p>
-<p>###jsNShowContent（显示内容页）<br><strong>调取此方法原生端会显示正常页面</strong></p>
-<p><em>js端调取加载失败jsNShowLoadFailed或者无网络jsNShowNoNetwork后调用</em></p>
-
-          
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/12/24/Native-JS-Guide/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -884,76 +733,14 @@
 
       
         
-          
-            <h2 id="XLForm基础"><a href="#XLForm基础" class="headerlink" title="XLForm基础"></a>XLForm基础</h2><h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><p>XLForm 是最灵活且最强大的创建动态表单的iOS库。<br>项目链接:<a href="https://github.com/xmartlabs/XLForm" target="_blank" rel="noopener">https://github.com/xmartlabs/XLForm</a><br>本文作者:武昭宁</p>
-<h3 id="创建"><a href="#创建" class="headerlink" title="创建"></a>创建</h3><ol>
-<li>集成XLForm到项目</li>
-<li>创建继承自<code>XLFormViewController</code>的控制器</li>
-<li><p>在控制器中创建表单</p>
- <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">-(void)initializeForm&#123;</span><br><span class="line"></span><br><span class="line">    XLFormDescriptor * form;</span><br><span class="line">    XLFormSectionDescriptor * section;</span><br><span class="line">    XLFormRowDescriptor * row;</span><br><span class="line"></span><br><span class="line">    form = [XLFormDescriptor formDescriptor];</span><br><span class="line"></span><br><span class="line">    section = [XLFormSectionDescriptor formSectionWithTitle:@&quot;section 1&quot;];</span><br><span class="line">    [form addFormSection:section];</span><br><span class="line"></span><br><span class="line">    row = [XLFormRowDescriptor formRowDescriptorWithTag:@&quot;realExamples&quot; rowType:ZNFormRowDescriptorTypeInfo title:@&quot;工单编码:&quot;];</span><br><span class="line">    [section addFormRow:row];</span><br><span class="line"></span><br><span class="line">    self.form = form;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p> <code>self.form = form;</code> //把创建的表单赋值给当前控制器的表单，不然不显示</p>
-</li>
-</ol>
-<h3 id="基本类的说明"><a href="#基本类的说明" class="headerlink" title="基本类的说明"></a>基本类的说明</h3><p>创建一个表单，主要用到了三个类：</p>
-<ul>
-<li>XLFormRowDescriptor</li>
-<li>XLFormSectionDescriptor</li>
-<li>XLFormDescriptor</li>
-</ul>
-<p>一种表单定义是一个<code>XLFormDescriptor</code>实例包含一个或多个部分（<code>XLFormSectionDescriptor</code>实例），每部分包含几行（<code>XLFormRowDescriptor</code>实例）。你可能已经注意到DSL结构模拟的一个表格的结构（Table –&gt;&gt; Sections – &gt;&gt; Rows）。由此产生的表格视图的结构（sections and rows order)）反映了定义的结构</p>
-<h3 id="自定义行"><a href="#自定义行" class="headerlink" title="自定义行"></a>自定义行</h3><p>创建一个自定义cell需要继承自<code>XLFormBaseCell</code>，需要遵循<code>XLFormDescriptorCell</code>协议<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">@protocol XLFormDescriptorCell &lt;NSObject&gt;</span><br><span class="line"></span><br><span class="line">@required</span><br><span class="line"></span><br><span class="line">@property (nonatomic, weak) XLFormRowDescriptor * rowDescriptor;</span><br><span class="line"></span><br><span class="line">// initialise all objects such as Arrays, UIControls etc...</span><br><span class="line">-(void)configure;</span><br><span class="line">// update cell when it about to be presented</span><br><span class="line">-(void)update;</span><br><span class="line"></span><br><span class="line">@optional</span><br><span class="line"></span><br><span class="line">// height of the cell</span><br><span class="line">+(CGFloat)formDescriptorCellHeightForRowDescriptor:(XLFormRowDescriptor *)rowDescriptor;</span><br><span class="line">// called to check if cell can became first responder</span><br><span class="line">-(BOOL)formDescriptorCellCanBecomeFirstResponder;</span><br><span class="line">// called to ask cell to assign first responder to relevant UIView.</span><br><span class="line">-(BOOL)formDescriptorCellBecomeFirstResponder;</span><br><span class="line">// called when cell is selected</span><br><span class="line">-(void)formDescriptorCellDidSelectedWithFormController:(XLFormViewController *)controller;</span><br><span class="line">// http parameter name used for network request</span><br><span class="line">-(NSString *)formDescriptorHttpParameterName;</span><br><span class="line"></span><br><span class="line">// is invoked when cell becomes firstResponder, could be used for change how the cell looks like when it&apos;s the forst responder.</span><br><span class="line">-(void)highlight;</span><br><span class="line">// is invoked when cell resign firstResponder</span><br><span class="line">-(void)unhighlight;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">@end</span><br></pre></td></tr></table></figure></p>
-<p>其中有两个必须要实现的方法：</p>
-<ul>
-<li>-(void)configure;     //初始化配置</li>
-<li>-(void)update;    //更新数据</li>
-</ul>
-<p>一旦一个自定义cell已经建立，<code>cellClassesForRowDescriptorTypes</code> 添加这个cell的定义。<br>一般注册cell在自定义cell的<code>+(void)load</code>方法中进行，即<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">+(void)load&#123;</span><br><span class="line">   [[XLFormViewController cellClassesForRowDescriptorTypes] setObject:[MYCustomCellClass class] forKey:kMyAppCustomCellType];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p><font color="red">创建一个自定义cell最少实现三个方法：</font></p>
-<blockquote>
-<p>-(void)configure;</p>
-<p>-(void)update;</p>
-<p>+(void)load   //不是必须，但推荐在这里进行注册操作</p>
-</blockquote>
-<h2 id="一些常用功能"><a href="#一些常用功能" class="headerlink" title="一些常用功能"></a>一些常用功能</h2><h3 id="表单取值"><a href="#表单取值" class="headerlink" title="表单取值"></a>表单取值</h3><ul>
-<li>可以通过<code>-(NSDictionary *)formValues</code>方法来获取表单的所有值，通过这个方法得到的是一个字典，字典中的key value 对应<code>XLFormRowDescriptor</code>的tag 和 value,<ul>
-<li>但是要注意只有对<code>XLFormRowDescriptor</code>设置了tag值才可以通过该方法取到</li>
-<li>如果两个<code>XLFormRowDescriptor</code>的tag值相同，则通过<code>-(NSDictionary *)formValues</code>取到的字典中，只存在后加入的<code>XLFormRowDescriptor</code>的值</li>
-</ul>
-</li>
-<li>可以通过tag获取<code>XLFormRowDescriptor</code>,再进行取值  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">XLFormRowDescriptor *textViewRowDescriptor = [self.form formRowWithTag:@&quot;place&quot;];</span><br><span class="line">NSString *place = textViewRowDescriptor.value;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<h3 id="点击事件的实现"><a href="#点击事件的实现" class="headerlink" title="点击事件的实现"></a>点击事件的实现</h3><p>通过实现代理方法<code>- (void)formDescriptorCellDidSelectedWithFormController:(XLFormViewController *)controller</code>来实现cell的点击事件，当点击cell的时候会触发该方法。</p>
-<p> 如果想在控制器中实现点击事件可以使用Action对象</p>
-<p><code>XLFormSectionDescriptor</code>本身有一个<code>XLFormAction</code>类型的属性<code>action</code>，<code>XLFormAction</code>的类里包含一些block，方便我们在控制器中处理cell的点击事件。</p>
-<p>首先在自定义的cell中<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">- (void)formDescriptorCellDidSelectedWithFormController:(XLFormViewController *)controller&#123;</span><br><span class="line">    if (self.rowDescriptor.action.formSelector)&#123;</span><br><span class="line">        [controller performFormSelector:self.rowDescriptor.action.formSelector withObject:self.rowDescriptor];</span><br><span class="line">    &#125;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>在控制器中<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">row = [XLFormRowDescriptor formRowDescriptorWithTag:@&quot;submit&quot; rowType:ZNFormRowDescriptorTypeSubmitBtn title:@&quot;&quot;];</span><br><span class="line">row.value = @&quot;提交&quot;;</span><br><span class="line">row.action.formSelector = @selector(submitClick);</span><br><span class="line">[section addFormRow:row];</span><br><span class="line"></span><br><span class="line">...</span><br><span class="line">- (void)submitClick&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<h3 id="校验表单数据"><a href="#校验表单数据" class="headerlink" title="校验表单数据"></a>校验表单数据</h3><p>校验器<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">row = [XLFormRowDescriptor formRowDescriptorWithTag:@&quot;int&quot; rowType:XLFormRowDescriptorTypeInteger title:@&quot;Integer&quot;];</span><br><span class="line">[row.cellConfigAtConfigure setObject:@&quot;Required...&quot; forKey:@&quot;textField.placeholder&quot;];</span><br><span class="line">[row.cellConfigAtConfigure setObject:@(NSTextAlignmentRight) forKey:@&quot;textField.textAlignment&quot;];</span><br><span class="line">row.required = YES;</span><br><span class="line">[row addValidator:[XLFormRegexValidator formRegexValidatorWithMsg:@&quot;greater than 50 and less than 100&quot; regex:@&quot;^([5-9][0-9]|100)$&quot;]];</span><br><span class="line">[section addFormRow:row];</span><br></pre></td></tr></table></figure></p>
-<p>得到所有行验证错误我们可以调用xlformviewcontroller方法：<br><code>-(NSArray *)formValidationErrors;</code></p>
-<p>也可以自定义一个校验器，实现常用的校验方法，方便调用，自定义的校验器必须要遵循<code>XLFormValidatorProtocol</code>协议<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">#import &quot;XLFormValidatorProtocol.h&quot;</span><br><span class="line"></span><br><span class="line">@interface MyFormValidator : NSObject&lt;XLFormValidatorProtocol&gt;</span><br><span class="line">+(MyFormValidator *)passwordValidator;</span><br><span class="line">@end</span><br><span class="line"></span><br><span class="line">#import &quot;MyFormValidator.h&quot;</span><br><span class="line">#import &quot;XLFormValidationStatus.h&quot;</span><br><span class="line">#import &quot;XLFormRegexValidator.h&quot;</span><br><span class="line"></span><br><span class="line">@implementation MyFormValidator</span><br><span class="line"></span><br><span class="line">//必须要实现的协议方法</span><br><span class="line">-(XLFormValidationStatus *)isValid:(XLFormRowDescriptor *)row</span><br><span class="line">&#123;</span><br><span class="line">    return [XLFormValidationStatus formValidationStatusWithMsg:nil status:YES rowDescriptor:row];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#pragma mark - Validators</span><br><span class="line"></span><br><span class="line">+(XLFormValidator *)passwordValidator</span><br><span class="line">&#123;</span><br><span class="line">    return [XLFormRegexValidator formRegexValidatorWithMsg:@&quot;At least 6, max 32 characters&quot; regex:@&quot;^(?=.*\\d)(?=.*[A-Za-z]).&#123;6,32&#125;$&quot;];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">@end</span><br></pre></td></tr></table></figure></p>
-<p>使用自定义的校验器<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">row = [XLFormRowDescriptor formRowDescriptorWithTag:@&quot;password&quot; rowType:XLFormRowDescriptorTypePassword title:@&quot;Password&quot;];</span><br><span class="line">[row addValidator:[MyFormValidator passwordValidator]];</span><br><span class="line">[section addFormRow:row];</span><br></pre></td></tr></table></figure></p>
-<h3 id="行的附加配置"><a href="#行的附加配置" class="headerlink" title="行的附加配置"></a>行的附加配置</h3><p>可以通过kvc的方式进行一些额外的属性配置你只需要去cellconfig或cellconfigatconfigure字典属性添加属性。cellconfig和cellconfigatconfigure之间的主要区别是时属性设置。cellconfig属性设置一个cell每次即将显示。cellconfigatconfigure，设置属性后的cell 执行init方法称为只有一次。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">row = [XLFormRowDescriptor formRowDescriptorWithTag:@&quot;place&quot; rowType:ZNFormRowDescriptorTypeTextView title:@&quot;故障位置：&quot;];</span><br><span class="line">[row.cellConfig setObject:@(10) forKey:@&quot;textViewMaxNumberOfCharacters&quot;];</span><br><span class="line">[section addFormRow:row];</span><br></pre></td></tr></table></figure>
-<h3 id="监听行的value值的改变"><a href="#监听行的value值的改变" class="headerlink" title="监听行的value值的改变"></a>监听行的value值的改变</h3><ul>
-<li><p>通过监听一行的数据值来决定另一行的状态，如显隐，禁用等</p>
-<blockquote>
-<p>hidden属性控制显示隐藏  disabled属性控制是否可以交互</p>
-</blockquote>
-<p>实现下面的方法</p>
-<p>注意要先实现<code>super方法</code></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">-(void)formRowDescriptorValueHasChanged:(XLFormRowDescriptor *)rowDescriptor oldValue:(id)oldValue newValue:(id)newValue&#123;</span><br><span class="line">    // super implmentation MUST be called</span><br><span class="line"></span><br><span class="line">    [super formRowDescriptorValueHasChanged:rowDescriptor oldValue:oldValue newValue:newValue];</span><br><span class="line"></span><br><span class="line">    if ([rowDescriptor.tag isEqualToString:@&quot;OrdersPerson&quot;]) &#123;</span><br><span class="line">       ...</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>另一种动态显示的方式</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">row = [XLFormRowDescriptor formRowDescriptorWithTag:@&quot;switch&quot; rowType:ZNFormRowDescriptorTypeSwitch title:@&quot;是否显示section2&quot;];</span><br><span class="line">row.value = @1;</span><br><span class="line">[section addFormRow:row];</span><br><span class="line"></span><br><span class="line">section = [XLFormSectionDescriptor formSectionWithTitle:@&quot;测试表单section2&quot;];</span><br><span class="line">section.hidden = [NSString stringWithFormat:@&quot;$switch==0&quot;];</span><br><span class="line">[form addFormSection:section];</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<h3 id="动态添加行和删除行"><a href="#动态添加行和删除行" class="headerlink" title="动态添加行和删除行"></a>动态添加行和删除行</h3><ul>
-<li>点击一行时在这一行的下面添加行或删除行,在自定义行的点击事件中实现<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">-(void)formDescriptorCellDidSelectedWithFormController:(XLFormViewController *)controller</span><br><span class="line">&#123;</span><br><span class="line">    [self.formViewController.tableView deselectRowAtIndexPath:[controller.form indexPathOfFormRow:self.rowDescriptor] animated:YES];</span><br><span class="line">    NSIndexPath * selectedRowPath = [self.formViewController.form indexPathOfFormRow:self.rowDescriptor];</span><br><span class="line">    NSIndexPath * nextRowPath = [NSIndexPath indexPathForRow:selectedRowPath.row + 1 inSection:selectedRowPath.section];</span><br><span class="line">    XLFormRowDescriptor * nextFormRow = [self.formViewController.form formRowAtIndex:nextRowPath];</span><br><span class="line"></span><br><span class="line">    XLFormSectionDescriptor * formSection = [self.formViewController.form.formSections objectAtIndex:nextRowPath.section];</span><br><span class="line">    XLFormRowDescriptor * nextRowDescriptor = [XLFormRowDescriptor formRowDescriptorWithTag:nil rowType:ZNFormRowDescriptorTypeMaterielDetailBottom];</span><br><span class="line">    //添加</span><br><span class="line">    [formSection addFormRow:nextRowDescriptor</span><br><span class="line">    afterRow:self.rowDescriptor];</span><br><span class="line">    //删除</span><br><span class="line">    [self.rowDescriptor.sectionDescriptor removeFormRow:nextFormRow];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<p>参考文献  <a href="https://www.jianshu.com/p/679e32976fa1" target="_blank" rel="noopener">https://www.jianshu.com/p/679e32976fa1</a></p>
-
-          
+          <h2 id="XLForm基础"><a href="#XLForm基础" class="headerlink" title="XLForm基础"></a>XLForm基础</h2><h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><p>XLForm 是最灵活且最强大的创建动态表单的iOS库。<br>项目链接:<a href="https://github.com/xmartlabs/XLForm" target="_blank" rel="noopener">https://github.com/xmartlabs/XLForm</a><br>本文作者:武昭宁</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/05/09/2018-05-09-xlform/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -1103,8 +890,7 @@
 
       
         
-          
-            <p>传统的App版本升级控制是在服务端数据库里直接写入了App版本信息的数据，每次升级都需直接修改数据，容易误操作；不利于维护；没有丰富的可配置信息；</p>
+          <p>传统的App版本升级控制是在服务端数据库里直接写入了App版本信息的数据，每次升级都需直接修改数据，容易误操作；不利于维护；没有丰富的可配置信息；</p>
 <p>针对这些问题，对App升级检测方案进行了优化调整。</p>
 <h3 id="可配置项"><a href="#可配置项" class="headerlink" title="可配置项"></a>可配置项</h3><ul>
 <li><p>配置生效时间：决定了此升级方案有效的下发时间</p>
@@ -1124,13 +910,13 @@
 <li><p>版本更新文案：</p>
 </li>
 </ul>
-<h3 id="API设计"><a href="#API设计" class="headerlink" title="API设计"></a>API设计</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;version&quot;: &quot;1.2.8&quot;,//最新版本号</span><br><span class="line">  &quot;validIP&quot;: &#123;//灰度下发，指定有效网段</span><br><span class="line">    &quot;fromIP&quot;: &quot;192.168.1.1&quot;,</span><br><span class="line">    &quot;toIP&quot;: &quot;192.168.2.200&quot;</span><br><span class="line">  &#125;,</span><br><span class="line">  &quot;isForce&quot;: 0,//是否是强制更新</span><br><span class="line">  &quot;timeInterval&quot;: &quot;5&quot;,//非强制更新下提醒升级的间隔</span><br><span class="line">  &quot;information&quot;: [//更新文案</span><br><span class="line">    &quot;1.内容&quot;,</span><br><span class="line">    &quot;2.内容&quot;</span><br><span class="line">  ],</span><br><span class="line">  &quot;themeColor&quot;: &quot;0xffffff&quot;,//提示框主题颜色</span><br><span class="line">  &quot;packageUrl&quot;: &quot;https://xxx.com/pasq.apk&quot;//升级包或商店的地址</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="使用方法"><a href="#使用方法" class="headerlink" title="使用方法"></a>使用方法</h3><ol>
-<li>配置升级信息源</li>
-<li>启动升级检测服务</li>
-</ol>
-
-          
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/05/08/2018-05-08-app-update/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>

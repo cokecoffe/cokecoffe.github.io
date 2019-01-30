@@ -94,18 +94,18 @@
 
 
 
-<meta name="description" content="UserManager前言涉及到用户登录的App，需要维护用户信息、并且处理用户登录状态。以下方案为平安社区各App中关于用户管理的技术实现方案。 类关系与用户状态相关的类0.UserManager(用户管理类） 123负责持久化用户信息负责与服务端(包含第三方)通讯负责派发登录成功、失效的通知 1.LoginViewController(登陆页面) 1负责触发登录操作 2.LogoutViewC">
+<meta name="description" content="UserManager前言涉及到用户登录的App，需要维护用户信息、并且处理用户登录状态。以下方案为平安社区各App中关于用户管理的技术实现方案。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="UserManager">
 <meta property="og:url" content="http://cokecoffe.github.io/2019/01/24/UserManager/index.html">
 <meta property="og:site_name" content="Cokecoffe&#39;s Notes">
-<meta property="og:description" content="UserManager前言涉及到用户登录的App，需要维护用户信息、并且处理用户登录状态。以下方案为平安社区各App中关于用户管理的技术实现方案。 类关系与用户状态相关的类0.UserManager(用户管理类） 123负责持久化用户信息负责与服务端(包含第三方)通讯负责派发登录成功、失效的通知 1.LoginViewController(登陆页面) 1负责触发登录操作 2.LogoutViewC">
+<meta property="og:description" content="UserManager前言涉及到用户登录的App，需要维护用户信息、并且处理用户登录状态。以下方案为平安社区各App中关于用户管理的技术实现方案。">
 <meta property="og:locale" content="en">
 <meta property="og:image" content="http://cokecoffe.github.io/images/usermanager.png">
-<meta property="og:updated_time" content="2019-01-24T08:10:13.386Z">
+<meta property="og:updated_time" content="2019-01-30T02:21:18.077Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="UserManager">
-<meta name="twitter:description" content="UserManager前言涉及到用户登录的App，需要维护用户信息、并且处理用户登录状态。以下方案为平安社区各App中关于用户管理的技术实现方案。 类关系与用户状态相关的类0.UserManager(用户管理类） 123负责持久化用户信息负责与服务端(包含第三方)通讯负责派发登录成功、失效的通知 1.LoginViewController(登陆页面) 1负责触发登录操作 2.LogoutViewC">
+<meta name="twitter:description" content="UserManager前言涉及到用户登录的App，需要维护用户信息、并且处理用户登录状态。以下方案为平安社区各App中关于用户管理的技术实现方案。">
 <meta name="twitter:image" content="http://cokecoffe.github.io/images/usermanager.png">
 
 
@@ -324,6 +324,28 @@
           </span>
 
           
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/AppTeam/" itemprop="url" rel="index">
+                    <span itemprop="name">AppTeam</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
 
           
             
@@ -363,6 +385,7 @@
 
       
         <h1 id="UserManager"><a href="#UserManager" class="headerlink" title="UserManager"></a>UserManager</h1><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>涉及到用户登录的App，需要维护用户信息、并且处理用户登录状态。以下方案为平安社区各App中关于用户管理的技术实现方案。</p>
+<a id="more"></a>
 <h2 id="类关系"><a href="#类关系" class="headerlink" title="类关系"></a>类关系</h2><h3 id="与用户状态相关的类"><a href="#与用户状态相关的类" class="headerlink" title="与用户状态相关的类"></a>与用户状态相关的类</h3><p>0.<strong>UserManager</strong>(用户管理类）</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">负责持久化用户信息</span><br><span class="line">负责与服务端(包含第三方)通讯</span><br><span class="line">负责派发登录成功、失效的通知</span><br></pre></td></tr></table></figure>
 <p>1.<strong>LoginViewController</strong>(登陆页面)</p>
